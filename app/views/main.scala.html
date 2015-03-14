@@ -1,11 +1,11 @@
-@(title: String)(content: Html)
+@()(content: Html)
 
 <!DOCTYPE html>
 
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>@title</title>
+        <title>edtag</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
@@ -14,9 +14,19 @@
     <body>
         <header>
             <section class="logo"><a href="/">&times;</a></section>
-            <section class="center"><input type="url" value=""></section>
+            <section class="main"><input type="url" value=""></section>
         </header>
-        <nav class=""></nav>
-        <main>@content</main>
+        <nav>
+            <ul>
+                <li>5 Styles Fluid Search Box/Bar | 54BLOGGER</li>
+                <li>test2 test2 test2 test2 test2 test2 test2 </li>
+                <li>test3 test2  test2 </li>
+                <li>test4 test2 </li>
+                <li>test5sdfsdf </li>
+            </ul>
+        </nav>
+        <main>
+            @content
+        </main>
     </body>
 </html>

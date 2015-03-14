@@ -1,90 +1,114 @@
-body {
+html, body {
     position: absolute;
     top: 0;
     width: 100%;
     margin: 0;
 
-    min-width: 800px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    font-size: 14px;
 }
 
 header {
     position: fixed;
     width: 100%;
-
     height: 70px;
-    /*box-shadow: 0 5px 8px rgba(0, 0, 0, 0.30);*/
+
     border-bottom: 1px solid lightgray;
-    /*z-index: 0;*/
+
     background-color: white;
-    opacity: 0.98;
+    /*opacity: 0.98;*/
 }
 
 header section.logo {
     position: absolute;
-    height: 70px;
     width: 70px;
-    /*background-color: red;*/
-    line-height: 70px;
-    margin: auto;
+    height: 70px;
 
     text-align: center;
+    line-height: 70px;
 
-    font-family: "Open Sans", sans-serif;
     font-size: 19px;
-    font-weight: 300;
 }
 
+header section.logo a:hover {
+    text-decoration: none;
+}
 
-header section.center {
-    text-align: center;
+header section.main {
+    position: absolute;
+    left: 200px;
 }
 
 header input {
-
     border: 1px solid lightgray;
     outline: none;
 
     width: 500px;
-    margin: 22px auto;
+    margin: 22px;
     padding: 5px;
 
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
     font-weight: 300;
+}
+
+nav {
+    position: fixed;
+    width: 200px;
+    top: 70px;
+
+    margin-top: 23px;
+    padding: 5px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    text-align: right;
+    padding: 10px;
+    white-space: nowrap;
+    width: 180px;
+    height: 16px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 main {
     position: absolute;
     top: 70px;
-    width: 100%;
+    left: 200px;
+    right: 0;
 
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 300;
+    overflow-x: hidden;
 }
 
-section ul {
-    border: 1px solid lightgray;
-    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30);*/
+main section {
+}
 
-    text-align: center;
-    list-style-type: none;
+main section ul {
+    border: 1px solid lightgray;
+    list-style: none;
 
     width: 500px;
-    margin: 23px auto;
+    margin: 22px;
     padding: 5px;
 
     background-color: white;
-
-    /*background-color: lightgray;*/
-    /*height: 3000px;*/
 }
 
-section ul li {
+main section ul li {
     text-align: left;
     padding: 10px;
-    /*background-color: lightgray;*/
-    /*padding: 10px;*/
+    white-space: nowrap;
+    width: 480px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 section ul li img {
