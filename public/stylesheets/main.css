@@ -58,13 +58,14 @@ nav {
     width: 200px;
     top: 70px;
 
-    margin-top: 23px;
-    padding: 5px;
+    background-color: lightgray;
+
+    margin-top: 24px;
 }
 
 nav ul {
     list-style: none;
-    padding: 0;
+    padding: 5px;
     margin: 0;
 }
 
@@ -81,7 +82,7 @@ nav ul li {
 
 main {
     position: absolute;
-    top: 70px;
+    top: 93px;
     left: 200px;
     right: 0;
 
@@ -96,7 +97,8 @@ main section ul {
     list-style: none;
 
     width: 500px;
-    margin: 22px;
+    margin: 0 0 0 22px;
+    /*margin: 22px;*/
     padding: 5px;
 
     background-color: white;
@@ -111,7 +113,7 @@ main section ul li {
     text-overflow: ellipsis;
 }
 
-section ul li img {
+main section ul li img {
     vertical-align: bottom;
     width: 16px;
     height: 16px;
