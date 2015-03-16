@@ -62,11 +62,12 @@ header input {
 nav {
     position: fixed;
     width: 200px;
-    top: 70px;
+    top: 93px;
 
     /*background-color: lightgray;*/
 
-    margin-top: 24px;
+    border: 1px solid white;
+    /*margin-top: 23px;*/
 }
 
 nav ul {
@@ -79,11 +80,14 @@ nav ul li {
     text-align: right;
     padding: 10px;
     white-space: nowrap;
-    width: 180px;
-    height: 16px;
+    width: 170px;
+    /*height: 16px;*/
+    line-height: 16px;
 
     overflow: hidden;
     text-overflow: ellipsis;
+
+    /*background-color: red;*/
 }
 
 main {
