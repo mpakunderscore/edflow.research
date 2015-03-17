@@ -36,8 +36,7 @@ header section.logo a {
 }
 
 header section.logo a:hover {
-
-    color: black;
+    color: red;
     text-decoration: none;
 }
 
@@ -68,7 +67,6 @@ nav {
 
     /*background-color: lightgray;*/
 
-    border: 1px solid white;
     /*margin-top: 23px;*/
 }
 
@@ -76,6 +74,8 @@ nav ul {
     list-style: none;
     padding: 5px;
     margin: 0;
+
+    border: 1px solid white;
 }
 
 nav ul li {
@@ -92,6 +92,11 @@ nav ul li {
     /*background-color: red;*/
 }
 
+nav ul li a:hover {
+    text-decoration: none;
+    color: red;
+}
+
 main {
     position: absolute;
     top: 93px;
@@ -101,10 +106,7 @@ main {
     overflow-x: hidden;
 }
 
-main section {
-}
-
-main section ul {
+main ul {
     border: 1px solid lightgray;
     list-style: none;
 
@@ -116,7 +118,7 @@ main section ul {
     background-color: white;
 }
 
-main section ul li {
+main ul li {
     text-align: left;
     padding: 10px;
     white-space: nowrap;
@@ -125,11 +127,11 @@ main section ul li {
     text-overflow: ellipsis;
 }
 
-main section ul li img {
+main ul li img {
     vertical-align: bottom;
     width: 16px;
     height: 16px;
-    padding-right: 7px;
+    margin-right: 7px;
 }
 
 a {
