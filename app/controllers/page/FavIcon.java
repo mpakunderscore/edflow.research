@@ -1,12 +1,12 @@
 package controllers.page;
 
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import models.WebData;
+//import com.amazonaws.services.s3.model.CannedAccessControlList;
+//import com.amazonaws.services.s3.model.PutObjectRequest;
+import models.Page;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import play.Logger;
-import plugins.S3Plugin;
+//import plugins.S3Plugin;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -21,7 +21,7 @@ public class FavIcon {
 
     public static String produce(String url, Document doc) {
 
-        String domainString = WebData.getDomainString(url);
+        String domainString = Page.getDomainString(url);
 
         String protocol = url.split("://")[0];
 
@@ -75,20 +75,20 @@ public class FavIcon {
             if (file.length() == 0)
                 return null;
 
-            if (S3Plugin.amazonS3 == null) {
-
-                Logger.debug("[amazonS3 is null]");
-
-                throw
-                        new RuntimeException("Could not save");
-
-            } else {
-
-                PutObjectRequest putObjectRequest = new PutObjectRequest(S3Plugin.s3Bucket, "favicons/" + domainString + "." + format, file);
-
-                putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // public for all
-                S3Plugin.amazonS3.putObject(putObjectRequest); // upload file
-            }
+//            if (S3Plugin.amazonS3 == null) {
+//
+//                Logger.debug("[amazonS3 is null]");
+//
+//                throw
+//                        new RuntimeException("Could not save");
+//
+//            } else {
+//
+//                PutObjectRequest putObjectRequest = new PutObjectRequest(S3Plugin.s3Bucket, "favicons/" + domainString + "." + format, file);
+//
+//                putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // public for all
+//                S3Plugin.amazonS3.putObject(putObjectRequest); // upload file
+//            }
 
         } catch (MalformedURLException e) {
             return null;

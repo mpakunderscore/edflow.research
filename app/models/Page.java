@@ -23,4 +23,24 @@ public class Page extends Model {
     String url;
 
     String title;
+
+    public Page(String url, String title) {
+        this.url = url;
+        this.title = title;
+    }
+
+    public static String getDomainString(String url) {
+
+        String domain = null;
+
+        try {
+
+            domain = url.split("://")[1].split("/")[0].replace("www.", "");
+
+        } catch (Exception e) {
+            return null;
+        }
+
+        return domain;
+    }
 }
