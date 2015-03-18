@@ -1,5 +1,7 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import models.Page;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -11,6 +13,8 @@ import static play.libs.Json.toJson;
 public class API extends Controller {
 
     public static Result add(String url) throws Exception {
+
+        Page page = Ebean.find(Page.class).where().eq("url", url).findUnique();
 
         return ok();
     }
