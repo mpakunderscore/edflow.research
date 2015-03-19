@@ -1,7 +1,8 @@
 package controllers.page.types;
 
 import controllers.Watcher;
-import controllers.page.TagParser;
+import controllers.page.Engine;
+import controllers.page.utils.EngineUtils;
 import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -9,8 +10,6 @@ import org.jsoup.nodes.Document;
 import play.Logger;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static play.libs.Json.toJson;
@@ -44,8 +43,12 @@ public class WebPage extends Type {
         if (title.length() == 0)
             return null; //TODO
 
-        Map<String, Integer> words = TagParser.getWords(text);
-        Map<String, Integer> textTags = TagParser.getTags(words);
+        Map<String, Integer> words = Engine.getWords(text);
+        Map<String, Integer> textTags = Engine.getTags(words);
+        Map<String, Integer> categories = Engine.getCategories(textTags);
+
+//        System.out.println(textTags);
+//        System.out.println(categories);
 
         int uniqueWordsCount = words.size();
 
@@ -55,6 +58,6 @@ public class WebPage extends Type {
         }
 
         Logger.debug("[time for url] " + (System.currentTimeMillis() - time) / 1000);
-        return new Page(url, title);
+        return new Page(url, title, String.valueOf(toJson(EngineUtils.getList(categories))));
     }
 }

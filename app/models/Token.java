@@ -14,8 +14,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="tags")
-public class Tag extends Model {
+@Table(name="tokens")
+public class Token extends Model {
 
     @Id
     public String name;
@@ -27,7 +27,7 @@ public class Tag extends Model {
 
     boolean mark = false;
 
-    public Tag(String name, String redirect, String categories, boolean mark) {
+    public Token(String name, String redirect, String categories, boolean mark) {
         this.name = name;
         this.redirect = redirect;
         this.categories = categories;

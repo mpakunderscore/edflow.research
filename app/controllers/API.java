@@ -5,6 +5,8 @@ import models.Page;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
 import static play.libs.Json.toJson;
 
 /**
@@ -19,7 +21,9 @@ public class API extends Controller {
 
     public static Result pages() throws Exception {
 
-        return ok();
+        int limit = 200;
+        List<Page> pageList = Ebean.find(Page.class).order().desc("id").setMaxRows(limit).findList();
+        return ok(toJson(pageList));
     }
 
     public static Result categories() throws Exception {

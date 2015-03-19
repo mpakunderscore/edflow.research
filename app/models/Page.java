@@ -16,7 +16,7 @@ import play.data.validation.*;
 public class Page extends Model {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Constraints.Required
@@ -24,9 +24,13 @@ public class Page extends Model {
 
     String title;
 
-    public Page(String url, String title) {
+    @Column(columnDefinition = "TEXT")
+    String categories;
+
+    public Page(String url, String title, String categories) {
         this.url = url;
         this.title = title;
+        this.categories = categories;
     }
 
     public Long getId() {
@@ -51,6 +55,14 @@ public class Page extends Model {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
     public static String getDomainString(String url) {

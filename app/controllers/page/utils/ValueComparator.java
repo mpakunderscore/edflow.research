@@ -1,11 +1,12 @@
-package controllers.page;
+package controllers.page.utils;
 
 import java.util.Comparator;
 import java.util.Map;
 
 /**
- * Created by pavelkuzmin on 16/04/14.
+ * Created by pavelkuzmin on 20/03/15.
  */
+
 public class ValueComparator implements Comparator<String> {
 
     Map<String, Integer> base;

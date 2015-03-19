@@ -15,6 +15,6 @@ public class PDF extends Type {
 
         String title = url;
 
-        return new Page(url, title);
+        return new Page(url, title, null);
     }
 }

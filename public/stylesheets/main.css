@@ -82,7 +82,7 @@ header section.main a:hover {
 }
 
 header section.main a.blue {
-    background-color: lightblue;
+    background-color: rgba(173, 216, 230, 0.51);
 }
 
 header section.main a.blue:hover {
@@ -95,7 +95,7 @@ header section.main a.green:hover {
 }
 
 header section.main a.skyblue:hover {
-    background-color: lightskyblue;
+    background-color: turquoise;
 }
 
 nav {

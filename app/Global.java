@@ -1,14 +1,13 @@
 import com.avaje.ebean.Ebean;
 import com.cybozu.labs.langdetect.LangDetectException;
 import controllers.page.LangDetect;
+import models.Page;
+import models.Token;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
-import play.libs.Json;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by pavelkuzmin on 19/05/14.
@@ -22,8 +21,14 @@ public class Global extends GlobalSettings {
             LangDetect.init("lib/profiles");
 
         } catch (LangDetectException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
+
+        List<Token> tokens = Ebean.find(Token.class).findList();
+        Logger.info("Tags: " + tokens.size());
+
+        List<Page> pages = Ebean.find(Page.class).findList();
+        Logger.info("Pages: " + pages.size());
 
         Logger.info("Application has started");
     }
