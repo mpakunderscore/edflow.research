@@ -12,14 +12,12 @@ import static play.libs.Json.toJson;
  */
 public class API extends Controller {
 
-    public static Result add(String url) throws Exception {
+    public static Result page(String url) throws Exception {
 
-        Page page = Ebean.find(Page.class).where().eq("url", url).findUnique();
-
-        return ok();
+        return ok(toJson(Watcher.getPage(url)));
     }
 
-    public static Result links() throws Exception {
+    public static Result pages() throws Exception {
 
         return ok();
     }

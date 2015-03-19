@@ -1,7 +1,7 @@
 package controllers.page;
 
 import com.avaje.ebean.Ebean;
-import controllers.parsers.Watcher;
+import controllers.Watcher;
 import models.Tag;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

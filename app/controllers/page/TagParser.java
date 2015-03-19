@@ -2,7 +2,6 @@ package controllers.page;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Tag;
-import models.WebData;
 import play.Logger;
 
 import java.util.*;
@@ -13,10 +12,6 @@ import java.util.regex.Pattern;
  * Created by pavelkuzmin on 09/04/14.
  */
 public class TagParser {
-
-    private final static int defaultTagsCount = 50;
-
-    private final static int bundleTagsCount = 5;
 
     private final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
@@ -30,12 +25,12 @@ public class TagParser {
 
     public static Map<String, Integer> getWords(String text) {
 
-        Map<String, Integer> resultWords = new HashMap<String, Integer>();
-        Map<String, Integer> words = new HashMap<String, Integer>();
-        List<String> wordsList = new ArrayList<String>();
+        Map<String, Integer> resultWords = new HashMap<>();
+        Map<String, Integer> words = new HashMap<>();
+        List<String> wordsList = new ArrayList<>();
 
         ValueComparator bvc =  new ValueComparator(resultWords);
-        Map<String, Integer> sortedWords  = new TreeMap<String, Integer>(bvc);
+        Map<String, Integer> sortedWords  = new TreeMap<>(bvc);
 
         Matcher matcher = wordPattern.matcher(text);
         while (matcher.find()) {
@@ -94,7 +89,7 @@ public class TagParser {
 
     public static Map<String, Integer> getTags(Map<String, Integer> wordsMap) {
 
-        Map<String, Integer> tags = new HashMap<String, Integer>();
+        Map<String, Integer> tags = new HashMap<>();
 
         int i = 0;
         for (Map.Entry<String, Integer> word : wordsMap.entrySet()) {
@@ -131,11 +126,6 @@ public class TagParser {
 
                 Logger.debug("[tag not mark] " + word.getKey() + ": " + word.getValue());
             }
-
-//            i++;
-
-            if (i > defaultTagsCount)
-                break;
         }
 
 //        for (Map.Entry<String, Integer> tag : tags.entrySet()) {
@@ -155,64 +145,5 @@ public class TagParser {
 //        }
 
         return tags;
-    }
-
-    /**
-     *
-     * List with JSON objects for output. Out: String.valueOf(toJson(tagsList))
-     *
-     * @param tags - map of any tags o words with weight
-     * @return - list of [{"name1", 0}, {"name2", 0}]
-     */
-
-    public static List<JSONTag> getTagsList(Map<String, Integer> tags) {
-
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        ValueComparator bvc =  new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
-
-        map.putAll(tags);
-        sorted_map.putAll(map);
-
-        List<JSONTag> tagsList = new ArrayList<JSONTag>();
-        for (Map.Entry<String, Integer> set : sorted_map.entrySet()) {
-
-            JSONTag tag = new JSONTag();
-            tag.name = set.getKey();
-            tag.weight = set.getValue();
-
-            tagsList.add(tag);
-        }
-
-        return tagsList;
-    }
-
-    /**
-     *
-     * Merge tags from webData list
-     *
-     * @param webDataList - list of links from bundle
-     * @return - getTagsList(merged)
-     */
-
-    public static List<JSONTag> getTagsForBundle(List<WebData> webDataList) {
-
-        Map<String, Integer> tagsMap = new HashMap<String, Integer>();
-
-        for (WebData webData : webDataList) {
-
-            JsonNode tags = webData.getTags();
-
-            for (int i = 0; i < tags.size(); i++) {
-
-                String name = tags.get(i).get("name").asText();
-                int weight = tags.get(i).get("weight").asInt();
-
-                if (tagsMap.containsKey(name)) tagsMap.put(name, tagsMap.get(name) + weight);
-                else tagsMap.put(name, weight);
-            }
-        }
-
-        return getTagsList(tagsMap);
     }
 }

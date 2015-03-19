@@ -34,8 +34,6 @@ public class WebPage extends Type {
             doc = connection.userAgent(Watcher.USER_AGENT).followRedirects(true).timeout(5000).get();
 
         } catch (IOException exception) { //TODO
-
-//            Logger.error("[webData is NULL]  " + url);
             return null;
         }
 
@@ -43,12 +41,11 @@ public class WebPage extends Type {
 
         title = doc.title();
 
-        if (title.length() == 0) return null; //TODO
+        if (title.length() == 0)
+            return null; //TODO
 
         Map<String, Integer> words = TagParser.getWords(text);
-        Logger.debug("[words] " + words.size());
         Map<String, Integer> textTags = TagParser.getTags(words);
-        TagParser.getTagsList(textTags);
 
         int uniqueWordsCount = words.size();
 
@@ -57,7 +54,7 @@ public class WebPage extends Type {
             wordsCount += value;
         }
 
-        Logger.debug("[time for web data] " + (System.currentTimeMillis() - time) / 1000);
+        Logger.debug("[time for url] " + (System.currentTimeMillis() - time) / 1000);
         return new Page(url, title);
     }
 }

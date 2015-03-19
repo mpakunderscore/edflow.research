@@ -5,8 +5,8 @@
 # Home page
 GET        /                    controllers.Application.index
 
-GET        /api/add             controllers.API.add(url: String)
-GET        /api/links           controllers.API.links
+GET        /api/page            controllers.API.page(url: String)
+GET        /api/pages           controllers.API.pages
 GET        /api/categories      controllers.API.categories
 
 
