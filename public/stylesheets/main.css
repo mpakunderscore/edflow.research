@@ -34,7 +34,8 @@ header section.logo {
 
     background-color: white;
 
-    font-size: 20px;
+    /*font-size: 20px;*/
+    font-weight: 300;
 
     /*margin: 0;*/
 }
@@ -43,20 +44,23 @@ header section.logo:hover {
 }
 
 header section.logo a {
-    padding: 8px 13px;
-    color: lightgray;
+    margin: 22px;
+    padding: 11px;
+    /*color: lightgray;*/
 }
 
 header section.logo a:hover {
-    color: white;
+    /*color: white;*/
     text-decoration: none;
-    background-color: red;
+    background-color: greenyellow;
 }
 
 header section.main {
     position: absolute;
     /*left: 200px;*/
     left: 20%;
+
+    white-space: nowrap;
 }
 
 header section.main input {
@@ -72,30 +76,39 @@ header section.main input {
     font-weight: 300;
 }
 
-header section.main a {
+header section.menu {
+    /*white-space: nowrap;*/
+    display: inline;
+}
+
+header section.menu a {
     padding: 11px;
     margin: 0;
 }
 
-header section.main a:hover {
+header section.menu a:hover {
     text-decoration: none;
 }
 
-header section.main a.blue {
+header section.menu a.flow {
     background-color: rgba(173, 216, 230, 0.51);
 }
 
-header section.main a.blue:hover {
+header section.menu a.flow:hover {
     background-color: lightblue;
 }
 
 
-header section.main a.green:hover {
+header section.menu a.demo:hover {
     background-color: lightgreen;
 }
 
-header section.main a.skyblue:hover {
+header section.menu a.about:hover {
     background-color: turquoise;
+}
+
+header section.menu a.login:hover {
+    background-color: lightcyan;
 }
 
 nav {

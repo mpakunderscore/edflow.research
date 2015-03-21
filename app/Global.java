@@ -25,7 +25,7 @@ public class Global extends GlobalSettings {
         }
 
         List<Token> tokens = Ebean.find(Token.class).findList();
-        Logger.info("Tags: " + tokens.size());
+        Logger.info("Tokens: " + tokens.size());
 
         List<Page> pages = Ebean.find(Page.class).findList();
         Logger.info("Pages: " + pages.size());

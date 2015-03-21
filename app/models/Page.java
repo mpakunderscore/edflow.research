@@ -3,9 +3,11 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import play.libs.Json;
 
 /**
  * Created by pavelkuzmin on 19/03/15.
@@ -57,8 +59,8 @@ public class Page extends Model {
         this.title = title;
     }
 
-    public String getCategories() {
-        return categories;
+    public JsonNode getCategories() {
+        return Json.parse(categories);
     }
 
     public void setCategories(String categories) {
@@ -79,6 +81,4 @@ public class Page extends Model {
 
         return domain;
     }
-
-
 }
