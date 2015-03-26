@@ -2,7 +2,7 @@ package controllers.page.types;
 
 import controllers.Watcher;
 import controllers.page.Engine;
-import controllers.page.utils.EngineUtils;
+import controllers.page.utils.Node;
 import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -44,8 +44,8 @@ public class WebPage extends Type {
             return null; //TODO
 
         Map<String, Integer> words = Engine.getWords(text);
-        Map<String, Integer> textTags = Engine.getTags(words);
-        Map<String, Integer> categories = Engine.getCategories(textTags);
+        Map<String, Integer> textTags = Engine.getTokensMap(words);
+        Map<String, Integer> categories = Engine.getCategoriesMap(textTags);
 
 //        System.out.println(textTags);
 //        System.out.println(categories);
@@ -58,6 +58,6 @@ public class WebPage extends Type {
         }
 
         Logger.debug("[time for url] " + (System.currentTimeMillis() - time) / 1000);
-        return new Page(url, title, String.valueOf(toJson(EngineUtils.getList(categories))));
+        return new Page(url, title, String.valueOf(toJson(Node.getNodeList(categories))));
     }
 }

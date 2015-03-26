@@ -3,6 +3,7 @@ package controllers.page;
 import com.avaje.ebean.Ebean;
 import controllers.Watcher;
 import controllers.page.utils.ValueComparator;
+import models.Category;
 import models.Token;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -24,15 +25,16 @@ import static play.libs.Json.toJson;
  */
 public class Engine {
 
-    private static final String url = ".wikipedia.org/wiki/";
+    private static final String tokenUrl = ".wikipedia.org/wiki/";
+    private static final String categoryUrl = ".wikipedia.org/wiki/Category:";
 
     private final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
     private final static boolean bigrams = false;
 
-    public static Token getTagPage(String word) {
+    public static Token getToken(String word) {
 
-        Token token = null;
+        Token token;
 
         token = Ebean.find(Token.class).where().idEq(word).findUnique();
 
@@ -45,9 +47,9 @@ public class Engine {
 
             String lang = LangDetect.detect(word);
 
-            Logger.debug("[tag new] " + word + " [" + lang + "]");
+            Logger.debug("[token new] " + word + " [" + lang + "]");
 
-            String connectUrl = "http://" + lang + url
+            String connectUrl = "http://" + lang + tokenUrl
 
                     + (!lang.equals("en") ? URLEncoder.encode(word, "UTF-8") : word);
 
@@ -79,12 +81,10 @@ public class Engine {
         for (Element link : links) {
 
             String category = link.text().toLowerCase();
-
             categories.add(category);
         }
 
         token = new Token(word, redirect_name, String.valueOf(toJson(categories)), true);
-
         token.save();
 
         return token;
@@ -155,50 +155,38 @@ public class Engine {
         words.putAll(bigrams);
     }
 
-    /**
-     *
-     * This method will return $defaultTagsCount tags in Map. Any tag taken as Wikipedia page (getTagPage).
-     *
-     * @param wordsMap - Map of words
-     * @return - this method will return $defaultTagsCount tags in Map. if tag is allowed and
-     */
-
-    public static Map<String, Integer> getTags(Map<String, Integer> wordsMap) {
+    public static Map<String, Integer> getTokensMap(Map<String, Integer> wordsMap) {
 
         Map<String, Integer> tags = new HashMap<>();
 
         for (Map.Entry<String, Integer> word : wordsMap.entrySet()) {
 
-            Token token = getTagPage(word.getKey());
+            Token token = getToken(word.getKey());
 
-            if (token == null) {
+            if (token.isMark()) {
 
-                Logger.error("[tag null] " + word.getKey());
-                break;
-
-            } else if (token.isMark()) {
-
-                Logger.debug("[tag ok] " + word.getKey() + ": " + word.getValue() + " " + token.getCategories() + (token.getRedirect() == null ? "" : " " + token.getRedirect()));
+                Logger.debug("[token ok] " + word.getKey() + ": " + word.getValue() + " " + token.getCategories() + (token.getRedirect() == null ? "" : " " + token.getRedirect()));
 
                 if (token.getRedirect() != null) {
 
-                    Token redirect = getTagPage(token.getRedirect());
+                    Token redirect = getToken(token.getRedirect());
 
-                    if (redirect != null && !redirect.isMark()) continue;
+                    if (redirect != null && !redirect.isMark())
+                        continue;
 
                     if (tags.containsKey(token.getRedirect())) {
 
                         int old = tags.get(token.getRedirect());
                         tags.put(token.getRedirect(), old + word.getValue());
 
-                    } else tags.put(token.getRedirect(), word.getValue());
+                    } else
+                        tags.put(token.getRedirect(), word.getValue());
 
-                } else tags.put(word.getKey(), word.getValue());
+                } else
+                    tags.put(word.getKey(), word.getValue());
 
-            } else {
-
-                Logger.debug("[tag not mark] " + word.getKey() + ": " + word.getValue());
-            }
+            } else
+                Logger.debug("[token not mark] " + word.getKey() + ": " + word.getValue());
         }
 
         if (bigrams)
@@ -207,9 +195,9 @@ public class Engine {
         return tags;
     }
 
-    private static void fromWordsToBigrams(Map<String, Integer> tags) {
+    private static void fromWordsToBigrams(Map<String, Integer> tokens) {
 
-        for (Map.Entry<String, Integer> tag : tags.entrySet()) {
+        for (Map.Entry<String, Integer> tag : tokens.entrySet()) {
 
             if (tag.getKey().contains(" ")) {
 
@@ -217,38 +205,92 @@ public class Engine {
                 String first = tag.getKey().split(" ")[0];
                 String second = tag.getKey().split(" ")[0];
 
-                if (tags.keySet().contains(first))
-                    tags.put(first, tags.get(first) - tag.getValue());
+                if (tokens.keySet().contains(first))
+                    tokens.put(first, tokens.get(first) - tag.getValue());
 
-                if (tags.keySet().contains(second))
-                    tags.put(second, tags.get(second) - tag.getValue());
+                if (tokens.keySet().contains(second))
+                    tokens.put(second, tokens.get(second) - tag.getValue());
             }
         }
     }
 
-    public static Map<String, Integer> getCategories(Map<String, Integer> tagsMap) {
+    public static Map<String, Integer> getCategoriesMap(Map<String, Integer> tokensMap) {
 
         Map<String, Integer> categories  = new HashMap<>();
         ValueComparator bvc =  new ValueComparator(categories);
         Map<String, Integer> sortedCategories  = new TreeMap<>(bvc);
 
-        for (Map.Entry<String, Integer> tag : tagsMap.entrySet()) {
+        for (Map.Entry<String, Integer> token : tokensMap.entrySet()) {
 
-            Token tags = Ebean.find(Token.class).where().idEq(tag.getKey()).findUnique();
-            List<String> tagCategories = fromJson(tags.getCategories(), ArrayList.class);
+            Token tokens = Ebean.find(Token.class).where().idEq(token.getKey()).findUnique();
+            List<String> tokenCategories = fromJson(tokens.getCategories(), ArrayList.class);
 
-            for (String tagCategory : tagCategories) {
+            for (String tokenCategory : tokenCategories) {
 
-                if (categories.containsKey(tagCategory)) {
+                Category category = getCategory(token.getKey(), tokenCategory);
+                List<String> categoryCategories = fromJson(category.getCategories(), ArrayList.class);
 
-                    int old = categories.get(tagCategory);
-                    categories.put(tagCategory, old + tag.getValue());
+                if (category != null)
+                    Logger.debug("[category ok] " + tokenCategory);
 
-                } else categories.put(tagCategory, tag.getValue());
+                if (categories.containsKey(tokenCategory)) {
+
+                    int old = categories.get(tokenCategory);
+                    categories.put(tokenCategory, old + token.getValue());
+
+                } else
+                    categories.put(tokenCategory, token.getValue());
             }
         }
 
         sortedCategories.putAll(categories);
         return sortedCategories;
+    }
+
+    public static Category getCategory(String tokenName, String categoryName) {
+
+        Category category;
+
+        category = Ebean.find(Category.class).where().idEq(categoryName).findUnique();
+
+        if (category != null)
+            return category;
+
+        Document doc;
+
+        try {
+
+            String lang = LangDetect.detect(categoryName);
+
+            Logger.debug("[category new] " + categoryName + " [" + lang + "]");
+
+            String connectUrl = "http://" + lang + categoryUrl
+
+                    + (!lang.equals("en") ? URLEncoder.encode(categoryName.replace(" ", "_"), "UTF-8") : categoryName);
+
+            Connection connection = Jsoup.connect(connectUrl);
+
+            doc = connection.userAgent(Watcher.USER_AGENT).followRedirects(true).get();
+
+        } catch (Exception exception) { //TODO
+
+            Logger.error("[category null] " + categoryName + " [from token] " + tokenName);
+            return null;
+        }
+
+        Elements links = doc.body().select("#mw-normal-catlinks ul a");
+
+        List<String> categories = new ArrayList<>();
+
+        for (Element link : links) {
+
+            String c = link.text().toLowerCase();
+            categories.add(c);
+        }
+
+        category = new Category(categoryName, String.valueOf(toJson(categories)));
+        category.save();
+
+        return category;
     }
 }
