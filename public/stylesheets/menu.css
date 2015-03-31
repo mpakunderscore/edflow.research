@@ -1,0 +1,55 @@
+header a:hover {
+    text-decoration: none;
+}
+
+header section.logo a {
+    margin: 22px;
+    padding: 11px;
+    background-color: rgba(78, 167, 230, 0.82);
+}
+
+header section.logo a:hover {
+    background-color: rgba(78, 167, 230, 0.2);
+}
+
+header section.menu a {
+    padding: 11px;
+    margin: 0;
+    font-size: 14px;
+}
+
+header section.menu a:hover {
+    text-decoration: none;
+}
+
+header section.menu a.demo {
+    background-color: rgba(173, 255, 47, 0.2);
+}
+
+header section.menu a.demo:hover {
+    background-color: greenyellow;
+}
+
+header section.menu a.api {
+    background-color: rgba(255, 160, 122, 0.2);
+}
+
+header section.menu a.api:hover {
+    background-color: lightsalmon;
+}
+
+header section.menu a.about {
+    background-color: rgba(64, 224, 208, 0.2);
+}
+
+header section.menu a.about:hover {
+    background-color: turquoise;
+}
+
+header section.menu a.login {
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+header section.menu a.login:hover {
+    background-color: rgba(255, 165, 0, 0.57);
+}

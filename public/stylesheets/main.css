@@ -33,31 +33,10 @@ header section.logo {
     line-height: 70px;
 
     background-color: white;
-
-    /*font-size: 20px;*/
-    font-weight: 300;
-
-    /*margin: 0;*/
-}
-
-header section.logo:hover {
-}
-
-header section.logo a {
-    margin: 22px;
-    padding: 11px;
-    /*color: lightgray;*/
-}
-
-header section.logo a:hover {
-    /*color: white;*/
-    text-decoration: none;
-    background-color: greenyellow;
 }
 
 header section.main {
     position: absolute;
-    /*left: 200px;*/
     left: 20%;
 
     white-space: nowrap;
@@ -68,7 +47,7 @@ header section.main input {
     outline: none;
 
     width: 500px;
-    margin: 22px;
+    margin: 22px 22px 22px 0;
     padding: 5px;
 
     font-family: "Open Sans", sans-serif;
@@ -77,55 +56,20 @@ header section.main input {
 }
 
 header section.menu {
-    /*white-space: nowrap;*/
     display: inline;
-}
-
-header section.menu a {
-    padding: 11px;
-    margin: 0;
-}
-
-header section.menu a:hover {
-    text-decoration: none;
-}
-
-header section.menu a.flow {
-    background-color: rgba(173, 216, 230, 0.51);
-}
-
-header section.menu a.flow:hover {
-    background-color: lightblue;
-}
-
-
-header section.menu a.demo:hover {
-    background-color: lightgreen;
-}
-
-header section.menu a.about:hover {
-    background-color: turquoise;
-}
-
-header section.menu a.login:hover {
-    background-color: lightcyan;
+    font-size: 0;
 }
 
 nav {
     position: fixed;
-    /*width: 200px;*/
     width: 20%;
     top: 93px;
-
-    /*background-color: lightgray;*/
-
-    /*margin-top: 23px;*/
 }
 
 nav ul {
     list-style: none;
     padding: 5px;
-    margin: 0;
+    margin: 0 22px 0 0;
 
     border: 1px solid white;
 }
@@ -163,7 +107,7 @@ main ul {
     list-style: none;
 
     width: 500px;
-    margin: 0 0 22px 22px;
+    margin: 0 0 22px;
     /*margin: 22px;*/
     padding: 5px;
 
@@ -183,7 +127,7 @@ main ul li img {
     vertical-align: bottom;
     width: 16px;
     height: 16px;
-    margin-right: 7px;
+    margin-right: 11px;
 }
 
 a {
