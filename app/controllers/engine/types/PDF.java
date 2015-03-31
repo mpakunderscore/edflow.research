@@ -1,10 +1,6 @@
-package controllers.page.types;
+package controllers.engine.types;
 
 import models.Page;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by pavelkuzmin on 08/04/14.

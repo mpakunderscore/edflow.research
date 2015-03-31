@@ -1,8 +1,8 @@
-package controllers.page.types;
+package controllers.engine.types;
 
 import controllers.Watcher;
-import controllers.page.Engine;
-import controllers.page.utils.Node;
+import controllers.engine.Engine;
+import controllers.engine.utils.Node;
 import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

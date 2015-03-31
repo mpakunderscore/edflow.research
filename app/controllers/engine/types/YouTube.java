@@ -1,4 +1,4 @@
-package controllers.page.types;
+package controllers.engine.types;
 
 /**
  * Created by pavelkuzmin on 08/04/14.

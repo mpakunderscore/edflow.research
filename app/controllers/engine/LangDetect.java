@@ -1,4 +1,4 @@
-package controllers.page;
+package controllers.engine;
 
 import com.cybozu.labs.langdetect.Detector;
 import com.cybozu.labs.langdetect.DetectorFactory;

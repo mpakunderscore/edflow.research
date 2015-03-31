@@ -1,6 +1,4 @@
-package controllers.page.types;
-
-import models.Page;
+package controllers.engine.types;
 
 /**
  * Created by pavelkuzmin on 19/03/15.

@@ -1,8 +1,8 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import controllers.page.types.PDF;
-import controllers.page.types.WebPage;
+import controllers.engine.types.PDF;
+import controllers.engine.types.WebPage;
 import models.Page;
 import play.Logger;
 
