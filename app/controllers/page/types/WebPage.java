@@ -43,7 +43,7 @@ public class WebPage extends Type {
         if (title.length() == 0)
             return null; //TODO
 
-        Map<String, Integer> words = Engine.getWords(text);
+        Map<String, Integer> words = Engine.getWordsMap(text);
         Map<String, Integer> textTags = Engine.getTokensMap(words);
         Map<String, Integer> categories = Engine.getCategoriesMap(textTags);
 

@@ -90,15 +90,7 @@ public class Engine {
         return token;
     }
 
-    /**
-     *
-     * Load any text, get map of sorted unique words (with bigrams)
-     *
-     * @param text - any text
-     * @return Map of sorted words with weight
-     */
-
-    public static Map<String, Integer> getWords(String text) {
+    public static Map<String, Integer> getWordsMap(String text) {
 
         Map<String, Integer> resultWords = new HashMap<>();
         Map<String, Integer> words = new HashMap<>();
@@ -131,14 +123,6 @@ public class Engine {
 
         return sortedWords;
     }
-
-    /**
-     *
-     * Catch bigrams (and n-grams maybe) like "project management", unsorted
-     *
-     * @param wordsList - ["put", "your", "text", "like", "a", "list", "of", "words"]
-     * @return - Map of bigrams (unsorted)
-     */
 
     private static void setBigrams(List<String> wordsList, Map<String, Integer> words) {
 
@@ -249,9 +233,7 @@ public class Engine {
 
     public static Category getCategory(String tokenName, String categoryName) {
 
-        Category category;
-
-        category = Ebean.find(Category.class).where().idEq(categoryName).findUnique();
+        Category category = Ebean.find(Category.class).where().idEq(categoryName).findUnique();
 
         if (category != null)
             return category;
@@ -278,17 +260,22 @@ public class Engine {
             return null;
         }
 
+        //TODO check
+        // This category contains only the following page. This list may not reflect recent changes (learn more).
+
         Elements links = doc.body().select("#mw-normal-catlinks ul a");
 
-        List<String> categories = new ArrayList<>();
+        List<String> subCategories = new ArrayList<>();
 
         for (Element link : links) {
-
-            String c = link.text().toLowerCase();
-            categories.add(c);
+            String subCategory = link.text().toLowerCase();
+            subCategories.add(subCategory);
         }
 
-        category = new Category(categoryName, String.valueOf(toJson(categories)));
+        if (subCategories.size() == 0)
+            Logger.debug("[category top] " + categoryName);
+
+        category = new Category(categoryName, String.valueOf(toJson(subCategories)));
         category.save();
 
         return category;

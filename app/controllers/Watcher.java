@@ -17,7 +17,7 @@ public class Watcher {
 
     private static Page requestPage(String url) {
 
-        Logger.debug("[request url] " + url);
+        Logger.debug("[url request] " + url);
 
         if (url.endsWith(pdf))
             return PDF.get(url);
