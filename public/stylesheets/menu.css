@@ -5,13 +5,11 @@ header a:hover {
 header section.logo a {
     margin: 22px;
     padding: 11px;
-    /*background-color: rgba(78, 167, 230, 0.82);*/
-    background-color: rgb(78, 167, 230);
-    /*opacity: 0.5;*/
+    background-color: rgba(78, 167, 230, 0.2);
 }
 
 header section.logo a:hover {
-    background-color: rgba(78, 167, 230, 0.2);
+    background-color: rgb(78, 167, 230);
 }
 
 header section.menu a {
@@ -25,11 +23,11 @@ header section.menu a:hover {
 }
 
 header section.menu a.demo {
-    background-color: rgba(173, 255, 47, 0.2);
+    background-color: rgba(255, 165, 0, 0.2);
 }
 
 header section.menu a.demo:hover {
-    background-color: greenyellow;
+    background-color: rgba(255, 165, 0, 0.7);
 }
 
 header section.menu a.api {
@@ -49,9 +47,9 @@ header section.menu a.about:hover {
 }
 
 header section.menu a.login {
-    background-color: rgba(255, 165, 0, 0.2);
+    background-color: rgba(173, 255, 47, 0.2);
 }
 
 header section.menu a.login:hover {
-    background-color: rgba(255, 165, 0, 0.7);
+    background-color: greenyellow;
 }

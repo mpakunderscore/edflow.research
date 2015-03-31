@@ -1,6 +1,6 @@
 import com.avaje.ebean.Ebean;
 import com.cybozu.labs.langdetect.LangDetectException;
-import controllers.page.LangDetect;
+import controllers.engine.LangDetect;
 import models.Category;
 import models.Page;
 import models.Token;

@@ -21,6 +21,8 @@ libraryDependencies += javaEbean
 
 libraryDependencies += "postgresql" % "postgresql" % "9.1-901.jdbc4"
 
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.18"
+
 libraryDependencies += "org.jsoup" % "jsoup" % "1.7.3"
 
 libraryDependencies += "com.google.api.client" % "google-api-client-json" % "1.2.3-alpha"

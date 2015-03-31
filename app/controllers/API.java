@@ -2,7 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.engine.Engine;
+import controllers.engine.Web;
 import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Page;
@@ -70,7 +70,7 @@ public class API extends Controller {
 
         for (String categoryName : categories.keySet()) {
 
-            Category category = Engine.getCategory(null, categoryName);
+            Category category = Web.getCategory(null, categoryName);
 
             if (category == null)
                 continue;
