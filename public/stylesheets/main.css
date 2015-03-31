@@ -97,8 +97,6 @@ main {
     position: absolute;
     top: 93px;
     left: 20%;
-    /*right: 0;*/
-
     overflow-x: hidden;
 }
 
@@ -108,7 +106,6 @@ main ul {
 
     width: 500px;
     margin: 0 0 22px;
-    /*margin: 22px;*/
     padding: 5px;
 
     background-color: white;
@@ -133,6 +130,17 @@ main ul li img {
 a {
     text-decoration: none;
     color: black;
+}
+
+aside {
+    position: fixed;
+    top: 93px;
+
+    width: 220px;
+    height: 300px;
+    /*background-color: chartreuse;*/
+    border: 1px solid lightgray;
+    left: 70%;
 }
 
 a:hover {

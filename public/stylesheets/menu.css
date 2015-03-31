@@ -5,7 +5,9 @@ header a:hover {
 header section.logo a {
     margin: 22px;
     padding: 11px;
-    background-color: rgba(78, 167, 230, 0.82);
+    /*background-color: rgba(78, 167, 230, 0.82);*/
+    background-color: rgb(78, 167, 230);
+    /*opacity: 0.5;*/
 }
 
 header section.logo a:hover {
@@ -47,9 +49,9 @@ header section.menu a.about:hover {
 }
 
 header section.menu a.login {
-    background-color: rgba(255, 165, 0, 0.1);
+    background-color: rgba(255, 165, 0, 0.2);
 }
 
 header section.menu a.login:hover {
-    background-color: rgba(255, 165, 0, 0.57);
+    background-color: rgba(255, 165, 0, 0.7);
 }
