@@ -1,6 +1,6 @@
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
-name := "edtag"
+name := "edflow"
 
 version := "2.0"
 
