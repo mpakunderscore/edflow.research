@@ -27,11 +27,15 @@ public class Page extends Model {
     String title;
 
     @Column(columnDefinition = "TEXT")
+    String tokens;
+
+    @Column(columnDefinition = "TEXT")
     String categories;
 
-    public Page(String url, String title, String categories) {
+    public Page(String url, String title, String tokens, String categories) {
         this.url = url;
         this.title = title;
+        this.tokens = tokens;
         this.categories = categories;
     }
 
@@ -57,6 +61,14 @@ public class Page extends Model {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public JsonNode getTokens() {
+        return Json.parse(tokens);
+    }
+
+    public void setTokens(String tokens) {
+        this.tokens = tokens;
     }
 
     public JsonNode getCategories() {

@@ -22,7 +22,8 @@ public class API extends Controller {
 
     public static Result page(String url) throws Exception {
 
-        return ok(toJson(Watcher.getPage(url)));
+//        return ok(toJson(Watcher.getPage(url)));
+        return null;
     }
 
     public static Result pages() throws Exception {

@@ -4,7 +4,7 @@
 
 # Home page
 GET        /                    controllers.Application.index()
-GET        /:page               controllers.Application.main(page: String)
+#GET        /:page               controllers.Application.main(page: String)
 
 GET        /api/page            controllers.API.page(url: String)
 GET        /api/pages           controllers.API.pages

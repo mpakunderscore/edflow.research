@@ -44,8 +44,8 @@ public class WebPage extends Type {
             return null; //TODO
 
         Map<String, Integer> words = Engine.getWordsMap(text);
-        Map<String, Integer> textTags = Engine.getTokensMap(words);
-        Map<String, Integer> categories = Engine.getCategoriesMap(textTags);
+        Map<String, Integer> tokens = Engine.getTokensMap(words);
+        Map<String, Integer> categories = Engine.getCategoriesMap(tokens);
 
 //        System.out.println(textTags);
 //        System.out.println(categories);
@@ -58,6 +58,6 @@ public class WebPage extends Type {
         }
 
         Logger.debug("[time for url] " + (System.currentTimeMillis() - time) / 1000);
-        return new Page(url, title, String.valueOf(toJson(Node.getNodeList(categories))));
+        return new Page(url, title, String.valueOf(toJson(Node.getNodeList(tokens))), String.valueOf(toJson(Node.getNodeList(categories))));
     }
 }

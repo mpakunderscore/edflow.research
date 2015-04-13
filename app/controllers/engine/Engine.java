@@ -59,7 +59,6 @@ public class Engine {
         }
 
         sortedWords.putAll(resultWords);
-
         return sortedWords;
     }
 
@@ -80,7 +79,9 @@ public class Engine {
 
     public static Map<String, Integer> getTokensMap(Map<String, Integer> wordsMap) {
 
-        Map<String, Integer> tags = new HashMap<>();
+        Map<String, Integer> tokens = new HashMap<>();
+        ValueComparator bvc =  new ValueComparator(tokens);
+        Map<String, Integer> sortedTokens  = new TreeMap<>(bvc);
 
         for (Map.Entry<String, Integer> word : wordsMap.entrySet()) {
 
@@ -97,25 +98,26 @@ public class Engine {
                     if (redirect != null && !redirect.isMark())
                         continue;
 
-                    if (tags.containsKey(token.getRedirect())) {
+                    if (tokens.containsKey(token.getRedirect())) {
 
-                        int old = tags.get(token.getRedirect());
-                        tags.put(token.getRedirect(), old + word.getValue());
+                        int old = tokens.get(token.getRedirect());
+                        tokens.put(token.getRedirect(), old + word.getValue());
 
                     } else
-                        tags.put(token.getRedirect(), word.getValue());
+                        tokens.put(token.getRedirect(), word.getValue());
 
                 } else
-                    tags.put(word.getKey(), word.getValue());
+                    tokens.put(word.getKey(), word.getValue());
 
             } else
                 Logger.debug("[token not mark] " + word.getKey() + ": " + word.getValue());
         }
 
         if (bigrams)
-            fromWordsToBigrams(tags);
+            fromWordsToBigrams(tokens);
 
-        return tags;
+        sortedTokens.putAll(tokens);
+        return sortedTokens;
     }
 
     private static void fromWordsToBigrams(Map<String, Integer> tokens) {
@@ -151,7 +153,7 @@ public class Engine {
             for (String tokenCategory : tokenCategories) {
 
                 Category category = Web.getCategory(token.getKey(), tokenCategory);
-                List<String> categoryCategories = fromJson(category.getCategories(), ArrayList.class);
+//                List<String> categoryCategories = fromJson(category.getCategories(), ArrayList.class);
 
                 if (category != null)
                     Logger.debug("[category ok] " + tokenCategory);
