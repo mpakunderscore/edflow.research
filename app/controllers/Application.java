@@ -10,6 +10,11 @@ public class Application extends Controller {
 
     public static Result index() {
 
+        return main("/");
+    }
+
+    public static Result main(String page) {
+
         return ok(views.html.index.render());
     }
 }

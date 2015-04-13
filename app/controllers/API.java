@@ -3,6 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.engine.Web;
+import controllers.engine.utils.Node;
 import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Page;
@@ -26,18 +27,36 @@ public class API extends Controller {
 
     public static Result pages() throws Exception {
 
+        Map<String, List> out = new HashMap<>();
+
         int limit = 200;
-        List<Page> pageList = Ebean.find(Page.class).order().desc("id").setMaxRows(limit).findList();
-        return ok(toJson(pageList));
+        List<Page> pagesList = Ebean.find(Page.class).order().desc("id").setMaxRows(limit).findList();
+
+        out.put("pages", pagesList);
+
+        Map<String, Integer> categories = getCategories(pagesList);
+
+        out.put("categories", Node.getNodeList(categories));
+
+        return ok(toJson(out));
     }
 
     public static Result categories() throws Exception {
 
+        List<Page> pagesList = Ebean.find(Page.class).findList();
+
+        Map<String, Integer> categories = getCategories(pagesList);
+
+//        fillAsGraph(categories, 0);
+
+        return ok(toJson(categories));
+    }
+
+    public static Map<String, Integer> getCategories(List<Page> pageList) {
+
         Map<String, Integer> categories  = new HashMap<>();
         ValueComparator bvc =  new ValueComparator(categories);
         Map<String, Integer> sortedCategories  = new TreeMap<>(bvc);
-
-        List<Page> pageList = Ebean.find(Page.class).findList();
 
         for (Page page : pageList) {
 
@@ -46,19 +65,18 @@ public class API extends Controller {
             for (JsonNode category : pageCategories) {
 
                 String name = category.get("name").asText();
+                int weight = category.get("weight").asInt();
 
                 if (categories.containsKey(name))
-                    categories.put(name, categories.get(name) + 1);
+                    categories.put(name, categories.get(name) + weight);
 
                 else
-                    categories.put(name, 1);
+                    categories.put(name, weight);
             }
         }
 
-//        fillAsGraph(categories, 0);
-
         sortedCategories.putAll(categories);
-        return ok(toJson(sortedCategories));
+        return sortedCategories;
     }
 
     private static void fillAsGraph(Map<String, Integer> categories, int i) {

@@ -3,6 +3,7 @@
  */
 
 var pages_list = [];
+var categories = [];
 
 var selected_categories = [];
 
@@ -11,14 +12,15 @@ function query(text) {
     $.get("/query", {text: text}, function( data ) {});
 }
 
-function pages() {
+function flow() {
 
     if (pages_list.length == 0)
 
         jQuery.ajax({
             url: "/api/pages",
-            success: function(pages) {
-                pages_list = pages.slice();
+            success: function(response) {
+                pages_list = response['pages'].slice();
+                categories = response['categories'].slice();
             },
             async: false
         });
@@ -34,17 +36,31 @@ function pages() {
     main.html('');
     main.append('<ul id="pages"></ul>');
 
-    var domains = {},
-        favIconsFormat = {},
-        categories = {};
+    var domains = {};
 
     for (var id in pages_list) {
 
         var url_categories = pages_list[id]['categories'];
 
         var remove = false;
-        for (var tid in selected_categories) {
-            if (!(selected_categories[tid] in url_categories)) {
+
+        var url_categories_names = [];
+        for (var nid in url_categories) {
+            var name = url_categories[nid]['name'];
+            if (!(name in url_categories_names))
+                url_categories_names.push(name);
+        }
+
+
+        for (var cid in selected_categories) {
+
+            //console.log(selected_categories[cid]);
+            //console.log(url_categories_names);
+            //console.log(!(selected_categories[cid] in url_categories_names));
+
+            var name = selected_categories[cid];
+
+            if (url_categories_names.indexOf(name) < 0) {
                 remove = true;
             }
         }
@@ -65,19 +81,19 @@ function pages() {
             domains[domain] = 1;
         }
 
-        for (var ucid in url_categories) {
-
-            //console.log(categories)
-
-            var name = url_categories[ucid].name;
-            var weight = url_categories[ucid].weight;
-
-            if (categories[name] != null)
-                categories[name] += parseInt(weight);
-
-            else
-                categories[name] = parseInt(weight);
-        }
+        //for (var ucid in url_categories) {
+        //
+        //    //console.log(categories)
+        //
+        //    var name = url_categories[ucid].name;
+        //    var weight = url_categories[ucid].weight;
+        //
+        //    if (categories[name] != null)
+        //        categories[name] += parseInt(weight);
+        //
+        //    else
+        //        categories[name] = parseInt(weight);
+        //}
 
         var title = pages_list[id]['title'].replace("\<", "\<\\");
 
@@ -86,7 +102,11 @@ function pages() {
 
         var favIconUrl = protocol + "://" + domain + "/favicon.ico"
 
-        var favIcon = "<a href=''><img src=" + favIconUrl + "></a>";
+
+
+        var favIcon = "<a href=''>" +
+            //<object data="http://stackoverflow.com/does-not-exist.png" type="image/png">
+            "<img src=" + favIconUrl + "></a>";
 
         var link = "<a href='" + pages_list[id]['url'] + "' target='_blank' title='" + title + "'>" + title + "</a>";
 
@@ -105,12 +125,11 @@ function pages() {
         $("#categories").append(row);
     }
 
-    var categories_sorted = sort(categories);
-    for (var id in categories_sorted) {
+    for (var id in categories) {
 
-        var name = categories_sorted[id][0];
+        var name = categories[id]['name'];
 
-        if (selected_categories.indexOf(id) >= 0)
+        if (selected_categories.indexOf(name) >= 0)
             continue;
 
         var row = "<li><a href='javascript:void(0)' onclick='categories_sort(this)' title=''>" + name + "</a></li>";
@@ -119,6 +138,10 @@ function pages() {
 
         if (id >= 13 - selected_categories.length) break;
     }
+
+    flow_();
+
+    window.history.pushState("object or string", "Title", "/");
 }
 
 function sort(map) {
@@ -140,7 +163,32 @@ function categories_sort(clicked) {
 
     else selected_categories.splice(selected_categories.indexOf(clicked.text), 1);
 
-    pages();
+    flow();
 }
 
-pages();
+flow();
+
+function flow_() {
+    window.history.pushState("object or string", "Title", "/");
+    document.title = "Flow";
+}
+
+function random() {
+    window.history.pushState("object or string", "Title", "/random");
+    document.title = "Random";
+}
+
+function about() {
+    window.history.pushState("object or string", "Title", "/about");
+    document.title = "About";
+}
+
+function login() {
+    window.history.pushState("object or string", "Title", "/login");
+    document.title = "Login";
+}
+
+jQuery("header a").click(function(event) {
+    $("header a").removeClass("selected");
+    jQuery(this).addClass("selected");
+});

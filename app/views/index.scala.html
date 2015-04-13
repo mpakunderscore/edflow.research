@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>edflow</title>
+        <title>Flow</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
 
@@ -13,15 +13,16 @@
     <body>
         <header>
             <section class="logo">
-                <a href="/" class="flow">Flow</a>
+                <a href="javascript:flow()" class="button flow selected">Flow</a>
+                <a href="javascript:random()" class="button random">Random</a>
             </section>
             <section class="main">
-                <input autofocus type="url" value="" title="Search">
+                <input type="url" value="" title="Search">
                 <section class="menu">
-                    <a href="/demo" class="demo">Demo</a>
-                    <a href="/api" class="api">API</a>
-                    <a href="/about" class="about">About</a>
-                    <a href="/login" class="login">Login</a>
+                    @*<a href="/demo" class="demo">Demo</a>*@
+                    @*<a href="/api" class="api">API</a>*@
+                    <a href="javascript:about()" class="button about">About</a>
+                    <a href="javascript:login()" class="button login">Login</a>
                 </section>
             </section>
         </header>
