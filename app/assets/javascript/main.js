@@ -173,9 +173,9 @@ function flow_() {
     document.title = "Flow";
 }
 
-function random() {
-    window.history.pushState("object or string", "Title", "/random");
-    document.title = "Random";
+function progress() {
+    window.history.pushState("object or string", "Title", "/progress");
+    document.title = "Progress";
 }
 
 function about() {

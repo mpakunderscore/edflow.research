@@ -16,6 +16,7 @@ header {
     width: 100%;
     height: 70px;
 
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);*/
     border-bottom: 1px solid lightgray;
 
     background-color: white;
@@ -27,12 +28,10 @@ header {
 
 header:hover {
     z-index: 1;
-    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);*/
 }
 
 header section.logo {
     position: absolute;
-    /*width: 70px;*/
     height: 70px;
 
     text-align: center;
@@ -43,16 +42,24 @@ header section.logo {
 
 header section.main {
     position: absolute;
-    left: 30%;
+    left: 25%;
+
+    height: 70px;
+
+    text-align: center;
+    line-height: 70px;
+
+    background-color: white;
+
 }
 
 header section.main input {
     border: 1px solid lightgray;
     outline: none;
 
-    width: 500px;
-    margin: 22px 22px 22px 0;
-    padding: 5px;
+    width: 496px;
+    /*margin: 22px 22px 22px 22px;*/
+    padding: 7px;
 
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
@@ -69,7 +76,7 @@ header section.menu {
 
 nav {
     position: fixed;
-    width: 30%;
+    width: 25%;
     top: 93px;
 }
 
@@ -106,9 +113,11 @@ nav ul li a:hover {
 
 main {
     position: absolute;
-    top: 93px;
-    left: 30%;
-    overflow-x: hidden;;
+    top: 92px;
+    left: 25%;
+    overflow-x: hidden;
+
+    /*box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);*/
 }
 
 main ul {
@@ -143,17 +152,17 @@ a {
     color: black;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 aside {
     position: fixed;
-    top: 93px;
+    top: 92px;
 
     width: 220px;
     height: 300px;
     /*background-color: chartreuse;*/
     border: 1px solid lightgray;
     left: 70%;
-}
-
-a:hover {
-    text-decoration: underline;
 }

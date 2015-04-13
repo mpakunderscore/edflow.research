@@ -25,17 +25,21 @@ header section.logo a {
     font-size: 14px;
 }
 
+header section.menu {
+    margin-left: 22px;
+}
+
+header section.menu a {
+    padding: 11px;
+    font-size: 14px;
+}
+
 header section.logo a.flow {
     background-color: rgb(78, 167, 230);
 }
 
 header section.logo a.random {
     background-color: #ff5b56;
-}
-
-header section.menu a {
-    padding: 11px;
-    font-size: 14px;
 }
 
 header section.menu a.about {
