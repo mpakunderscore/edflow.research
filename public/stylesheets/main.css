@@ -57,17 +57,21 @@ header section.main input {
     border: 1px solid lightgray;
     outline: none;
 
-    width: 496px;
+    width: 480px;
     /*margin: 22px 22px 22px 22px;*/
-    padding: 7px;
+    padding: 10px;
 
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
     font-weight: 300;
 }
 
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
 header section.main input:hover {
-    /*box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
 }
 
 header section.menu {
@@ -77,15 +81,15 @@ header section.menu {
 nav {
     position: fixed;
     width: 25%;
-    top: 93px;
+    top: 71px; /* without border */
 }
 
 nav ul {
     list-style: none;
-    padding: 5px;
-    margin: 0 22px 0 0;
+    /*padding: 5px;*/
+    margin: 10px 20px 0 0;
 
-    border: 1px solid white;
+    /*border: 1px solid white;*/
 }
 
 nav ul li {
@@ -113,7 +117,7 @@ nav ul li a:hover {
 
 main {
     position: absolute;
-    top: 92px;
+    top: 70px;
     left: 25%;
     overflow-x: hidden;
 
@@ -126,18 +130,20 @@ main ul {
 
     width: 500px;
     margin: 0;
-    padding: 5px;
+    padding: 10px 0 0 0;
 
     background-color: white;
 }
 
 main ul li {
     text-align: left;
-    padding: 10px;
+    padding: 10px 10px 10px 20px;
     white-space: nowrap;
-    width: 480px;
+    width: 490px;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    /*background-color: red;*/
 }
 
 main ul li img {
@@ -158,7 +164,7 @@ a:hover {
 
 aside {
     position: fixed;
-    top: 92px;
+    top: 70px;
 
     width: 220px;
     height: 300px;

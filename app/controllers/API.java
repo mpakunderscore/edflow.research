@@ -43,6 +43,10 @@ public class API extends Controller {
 
     public static Result tokens() throws Exception {
 
+        Map<String, Integer> tokens  = new HashMap<>();
+        ValueComparator bvc =  new ValueComparator(tokens);
+        Map<String, Integer> sortedTokens  = new TreeMap<>(bvc);
+
         List<Page> pagesList = Ebean.find(Page.class).findList();
         int pagesCount = pagesList.size();
 
@@ -57,15 +61,14 @@ public class API extends Controller {
             double average = tMass / tCount;
             double idf = Math.log((double) pagesCount / (double) tCount);
 
+            tokens.put(token, (int) (average * idf));
+
 //            System.out.println(token + " " + average + " " + idf);
-            System.out.format("%32s %10s %16s\n", token, average, idf);
+//            System.out.format("%32s %10s %16s %16s\n", token, average, idf, average * idf);
         }
 
-
-        // (всю массу / кол-во страниц со вхождением) среднее распределение по своим страницам
-        // умножить на коэф-т важности (лог от частоты вхождения во все страницы)
-
-        return ok(toJson(count));
+        sortedTokens.putAll(tokens);
+        return ok(toJson(sortedTokens));
     }
 
     private static Map<String, Integer> process(List<Page> pagesList, boolean w) {
@@ -174,5 +177,22 @@ public class API extends Controller {
             else
                 categories.put(subCategoryName, 1);
         }
+    }
+
+    public static Result generate() throws Exception {
+
+        List<Page> pages = new ArrayList<>();
+
+        int limit = 100;
+
+        for (int i = 0; i < limit; i++) {
+
+            Page page = Web.getRandom();
+            pages.add(page);
+
+            System.out.println(page.getTitle());
+        }
+
+        return ok(toJson(pages));
     }
 }
