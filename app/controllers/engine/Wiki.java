@@ -2,18 +2,17 @@ package controllers.engine;
 
 import com.avaje.ebean.Ebean;
 import controllers.Watcher;
+import controllers.engine.utils.LangDetect;
 import models.Category;
 import models.Page;
 import models.Token;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.Logger;
 
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import static play.libs.Json.toJson;
 /**
  * Created by pavelkuzmin on 01/04/15.
  */
-public class Web {
+public class Wiki {
 
     private static final String tokenUrl = ".wikipedia.org/wiki/";
     private static final String categoryUrl = ".wikipedia.org/wiki/Category:";

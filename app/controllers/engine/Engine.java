@@ -1,24 +1,16 @@
 package controllers.engine;
 
 import com.avaje.ebean.Ebean;
-import controllers.Watcher;
 import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Token;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import play.Logger;
 
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static play.libs.Json.fromJson;
-import static play.libs.Json.toJson;
 
 /**
  * Created by pavelkuzmin on 20/03/15.
@@ -85,7 +77,7 @@ public class Engine {
 
         for (Map.Entry<String, Integer> word : wordsMap.entrySet()) {
 
-            Token token = Web.getToken(word.getKey());
+            Token token = Wiki.getToken(word.getKey());
 
             if (token.isMark()) {
 
@@ -93,7 +85,7 @@ public class Engine {
 
                 if (token.getRedirect() != null) {
 
-                    Token redirect = Web.getToken(token.getRedirect());
+                    Token redirect = Wiki.getToken(token.getRedirect());
 
                     if (redirect != null && !redirect.isMark())
                         continue;
@@ -152,7 +144,7 @@ public class Engine {
 
             for (String tokenCategory : tokenCategories) {
 
-                Category category = Web.getCategory(token.getKey(), tokenCategory);
+                Category category = Wiki.getCategory(token.getKey(), tokenCategory);
 //                List<String> categoryCategories = fromJson(category.getCategories(), ArrayList.class);
 
                 if (category != null)
