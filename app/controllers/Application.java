@@ -10,7 +10,7 @@ public class Application extends Controller {
 
     public static Result index() {
 
-        return main("/");
+        return main("");
     }
 
     public static Result main(String page) {

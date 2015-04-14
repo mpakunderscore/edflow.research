@@ -22,8 +22,7 @@ public class API extends Controller {
 
     public static Result page(String url) throws Exception {
 
-//        return ok(toJson(Watcher.getPage(url)));
-        return null;
+        return ok(toJson(Watcher.getPage(url)));
     }
 
     public static Result pages() throws Exception {
@@ -42,6 +41,62 @@ public class API extends Controller {
         return ok(toJson(out));
     }
 
+    public static Result tokens() throws Exception {
+
+        List<Page> pagesList = Ebean.find(Page.class).findList();
+        int pagesCount = pagesList.size();
+
+        Map<String, Integer> count = process(pagesList, true);
+        Map<String, Integer> mass = process(pagesList, false);
+
+        for (String token : mass.keySet()) {
+
+            int tMass = mass.get(token);
+            int tCount = count.get(token);
+
+            double average = tMass / tCount;
+            double idf = Math.log((double) pagesCount / (double) tCount);
+
+//            System.out.println(token + " " + average + " " + idf);
+            System.out.format("%32s %10s %16s\n", token, average, idf);
+        }
+
+
+        // (всю массу / кол-во страниц со вхождением) среднее распределение по своим страницам
+        // умножить на коэф-т важности (лог от частоты вхождения во все страницы)
+
+        return ok(toJson(count));
+    }
+
+    private static Map<String, Integer> process(List<Page> pagesList, boolean w) {
+
+        Map<String, Integer> tokens  = new HashMap<>();
+//        ValueComparator bvc =  new ValueComparator(tokens);
+//        Map<String, Integer> sortedTokens  = new TreeMap<>(bvc);
+
+        for (Page page : pagesList) {
+
+            JsonNode pageTokens = page.getTokens();
+
+            for (JsonNode token : pageTokens) {
+
+                String name = token.get("name").asText();
+                int weight = (w ? 1 : token.get("weight").asInt());
+
+                if (tokens.containsKey(name))
+                    tokens.put(name, tokens.get(name) + weight);
+
+                else
+                    tokens.put(name, weight);
+            }
+        }
+
+//        sortedTokens.putAll(tokens);
+//        return sortedTokens;
+
+        return tokens;
+    }
+
     public static Result categories() throws Exception {
 
         List<Page> pagesList = Ebean.find(Page.class).findList();
@@ -53,13 +108,13 @@ public class API extends Controller {
         return ok(toJson(categories));
     }
 
-    public static Map<String, Integer> getCategories(List<Page> pageList) {
+    public static Map<String, Integer> getCategories(List<Page> pagesList) {
 
         Map<String, Integer> categories  = new HashMap<>();
         ValueComparator bvc =  new ValueComparator(categories);
         Map<String, Integer> sortedCategories  = new TreeMap<>(bvc);
 
-        for (Page page : pageList) {
+        for (Page page : pagesList) {
 
             JsonNode pageCategories = page.getCategories();
 
