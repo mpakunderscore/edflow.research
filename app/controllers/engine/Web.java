@@ -3,14 +3,17 @@ package controllers.engine;
 import com.avaje.ebean.Ebean;
 import controllers.Watcher;
 import models.Category;
+import models.Page;
 import models.Token;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.Logger;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,27 @@ public class Web {
 
     private static final String tokenUrl = ".wikipedia.org/wiki/";
     private static final String categoryUrl = ".wikipedia.org/wiki/Category:";
+
+    private static final String protocol = "https://";
+
+    private static final String randomUrl = protocol + "en.wikipedia.org/wiki/Special:Random";
+
+
+    public static Page getRandom() throws Exception {
+
+        Connection.Response response;
+
+        try {
+
+            response = Jsoup.connect(randomUrl).userAgent(Watcher.USER_AGENT).followRedirects(true).execute();
+
+        } catch (Exception exception) { //TODO
+
+            return null;
+        }
+
+        return Watcher.getPage(response.url().toString());
+    }
 
     public static Token getToken(String word) {
 
@@ -42,7 +66,7 @@ public class Web {
 
             Logger.debug("[token new] " + word + " [" + lang + "]");
 
-            String connectUrl = "http://" + lang + tokenUrl
+            String connectUrl = protocol + lang + tokenUrl
 
                     + (!lang.equals("en") ? URLEncoder.encode(word, "UTF-8") : word);
 
@@ -98,7 +122,7 @@ public class Web {
 
             Logger.debug("[category new] " + categoryName + " [" + lang + "]");
 
-            String connectUrl = "http://" + lang + categoryUrl
+            String connectUrl = protocol + lang + categoryUrl
 
                     + (!lang.equals("en") ? URLEncoder.encode(categoryName.replace(" ", "_"), "UTF-8") : categoryName);
 
