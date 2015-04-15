@@ -13,7 +13,7 @@ public class Main {
 
         int a1 = 5;
         int a2 = 3;
-        ;
+
         double a = (double) a1 / (double) a2;
         double idf = Math.log(a);
         System.out.println(idf);

@@ -17,7 +17,8 @@ header a.selected {
 }
 
 header section.logo {
-    margin-left: 22px;
+    /*background-color: lightcoral;*/
+    margin-left: 20px;
 }
 
 header section.logo a {
@@ -26,7 +27,13 @@ header section.logo a {
 }
 
 header section.menu {
-    margin-left: 22px;
+    /*background-color: lightcoral;*/
+    position: absolute;
+    right: 20px;
+    vertical-align: middle;
+
+    height: 70px;
+    /*margin-left: 22px;*/
 }
 
 header section.menu a {
