@@ -85,8 +85,9 @@ header section.main input {
 }
 
 header section.main input:hover {
+    /*box-shadow: 0 0 8px 2px rgba(255, 165, 0, 0.3);*/
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
-    border: 1px solid white;
+    border: 1px solid rgba(255, 165, 0, 0.7);
 }
 
 header section.menu {
@@ -97,6 +98,8 @@ nav {
     position: fixed;
     width: 25%;
     top: 70px; /* without border */
+
+    border: 1px solid white;
 }
 
 nav ul {
@@ -132,7 +135,7 @@ nav ul li a:hover {
 
 main {
     position: absolute;
-    top: 69px;
+    top: 70px;
     left: 25%;
     overflow-x: hidden;
 
@@ -140,12 +143,13 @@ main {
 }
 
 main ul {
-    border: 1px solid lightgray;
+    border: 1px solid rgb(78, 167, 230);
+    /*border-top: 1px solid white;*/
     list-style: none;
 
     width: 500px;
     margin: 0;
-    padding: 10px 0 0 0;
+    padding: 10px 0 10px 0;
 
     background-color: white;
 }
