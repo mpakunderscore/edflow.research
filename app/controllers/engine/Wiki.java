@@ -131,8 +131,12 @@ public class Wiki {
 
         } catch (Exception exception) { //TODO
 
-            Logger.error("[category null] " + categoryName + " [from token] " + tokenName);
-            return null;
+            Logger.debug("[category null] " + categoryName + " [from token] " + tokenName);
+
+            category = new Category(categoryName, String.valueOf(toJson(new ArrayList<>())));
+            category.save();
+
+            return category;
         }
 
         //TODO check

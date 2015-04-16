@@ -69,7 +69,10 @@ header section.main input {
     /*top: 0; left: 0; bottom: 0; right: 0;*/
     /*margin: auto;*/
 
-    width: 502px;
+    margin-left: 20px;
+
+    width: 462px;
+    /*height: 158px;*/
     padding: 10px;
 
     font-family: "Open Sans", sans-serif;
@@ -83,6 +86,7 @@ header section.main input {
 
 header section.main input:hover {
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
+    border: 1px solid white;
 }
 
 header section.menu {
@@ -92,13 +96,13 @@ header section.menu {
 nav {
     position: fixed;
     width: 25%;
-    top: 71px; /* without border */
+    top: 70px; /* without border */
 }
 
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 10px 20px 0 0;
+    margin: 10px 20px 0 10px;
 
     /*border: 1px solid white;*/
 }
@@ -128,11 +132,11 @@ nav ul li a:hover {
 
 main {
     position: absolute;
-    top: 70px;
+    top: 69px;
     left: 25%;
     overflow-x: hidden;
 
-    /*box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);*/
+    /*box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);*/
 }
 
 main ul {
