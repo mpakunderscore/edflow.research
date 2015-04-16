@@ -12,6 +12,8 @@ function add_url(tab, userId) {
     if (tab.status != "complete")
         return;
 
+    var secondsStart = new Date().getTime() / 1000;
+
     var url = host + "/api/page?url=" + encodeURIComponent(tab.url) + "&userId=" + userId;
 
     var request = new XMLHttpRequest();
@@ -23,7 +25,11 @@ function add_url(tab, userId) {
     if (response.length == 0)
         return; //TODO
 
-    notification(tab.favIconUrl, tab.title,  "dev"); //TODO
+    var secondsEnd = new Date().getTime() / 1000;
+
+    var time = (secondsEnd - secondsStart) + "";
+
+    notification(tab.favIconUrl, tab.title,  time); //TODO
 }
 
 function notification(iconUrl, title, text) {

@@ -21,6 +21,8 @@
 	},
 	  
 	"permissions": [
+        "http://*/*",
+        "https://*/*",
         "notifications",
         "activeTab",
         "http://localhost:9000/*"]
