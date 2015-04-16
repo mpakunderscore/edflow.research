@@ -52,12 +52,10 @@ public class Classifier {
     private static Map<String, Integer> process(List<Page> pagesList, boolean w) {
 
         Map<String, Integer> tokens  = new HashMap<>();
-//        ValueComparator bvc =  new ValueComparator(tokens);
-//        Map<String, Integer> sortedTokens  = new TreeMap<>(bvc);
 
         for (Page page : pagesList) {
 
-            JsonNode pageTokens = page.getTokens();
+            JsonNode pageTokens = page.getCategories();
 
             for (JsonNode token : pageTokens) {
 
@@ -71,9 +69,6 @@ public class Classifier {
                     tokens.put(name, weight);
             }
         }
-
-//        sortedTokens.putAll(tokens);
-//        return sortedTokens;
 
         return tokens;
     }

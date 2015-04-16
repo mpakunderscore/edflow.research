@@ -35,7 +35,7 @@ public class API extends Controller {
 
         out.put("pages", pagesList);
 
-        Map<String, Integer> categories = Classifier.getCategories(pagesList);
+        Map<String, Integer> categories = Classifier.getTokens(pagesList);
 
         out.put("categories", Node.getNodeList(categories));
 

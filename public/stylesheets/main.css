@@ -87,7 +87,8 @@ header section.main input {
 header section.main input:hover {
     /*box-shadow: 0 0 8px 2px rgba(255, 165, 0, 0.3);*/
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 165, 0, 0.7);
+    /*border: 1px solid rgba(255, 165, 0, 0.7);*/
+    border: 1px solid white;
 }
 
 header section.menu {
@@ -143,7 +144,7 @@ main {
 }
 
 main ul {
-    border: 1px solid rgb(78, 167, 230);
+    border: 1px solid lightgray;
     /*border-top: 1px solid white;*/
     list-style: none;
 
@@ -152,6 +153,10 @@ main ul {
     padding: 10px 0 10px 0;
 
     background-color: white;
+}
+
+main ul:hover {
+    border: 1px solid rgb(78, 167, 230);
 }
 
 main ul li {
