@@ -58,6 +58,6 @@ public class WebPage extends Type {
         }
 
         Logger.debug("[time for url] " + (System.currentTimeMillis() - time) / 1000);
-        return new Page(url, title, String.valueOf(toJson(Node.getNodeList(tokens))), String.valueOf(toJson(Node.getNodeList(categories))));
+        return new Page(url, title, tokens, categories);
     }
 }

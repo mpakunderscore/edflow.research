@@ -6,7 +6,7 @@
 GET        /                      controllers.Application.index()
 GET        /:page                 controllers.Application.main(page: String)
 
-GET        /api/page              controllers.API.page(url: String)
+GET        /api/page              controllers.API.pageProcessed(url: String)
 GET        /api/pages             controllers.API.pages
 GET        /api/categories        controllers.API.categories
 GET        /api/tokens            controllers.API.tokens

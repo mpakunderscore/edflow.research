@@ -8,7 +8,7 @@ html, body {
     font-weight: 300;
     font-size: 14px;
 
-    /*background-color: #ececec;*/
+    background-color: rgb(232, 232, 232);
 }
 
 header {
@@ -19,9 +19,10 @@ header {
     /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);*/
     /*border-bottom: 1px solid lightgray;*/
 
-    background-color: white;
+    /*background-color: white;*/
     /*background-color: rgba(78, 167, 230, 0.2);*/
-    /*opacity: 0.95;*/
+    /*background-color: rgba(78, 167, 230, 0.5);*/
+    /*opacity: 1.0;*/
 
     line-height: 70px;
     font-size: 0;
@@ -30,6 +31,8 @@ header {
 header:hover {
     z-index: 1;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
+    background-color: rgba(160, 204, 230, 0.84);
+    /*filter: blur(5px);*/
 }
 
 header section.logo {
@@ -61,11 +64,11 @@ header section.main {
 }
 
 header section.main input {
-    border: 1px solid lightgray;
+    border: 1px solid white;
     outline: none;
 
     position: absolute;
-    top: 17px;
+    top: 16px;
     /*top: 0; left: 0; bottom: 0; right: 0;*/
     /*margin: auto;*/
 
@@ -100,7 +103,7 @@ nav {
     width: 25%;
     top: 70px; /* without border */
 
-    border: 1px solid white;
+    /*border: 1px solid white;*/
 }
 
 nav ul {
@@ -144,19 +147,20 @@ main {
 }
 
 main ul {
-    border: 1px solid lightgray;
+    /*border: 1px solid lightgray;*/
     /*border-top: 1px solid white;*/
     list-style: none;
 
     width: 500px;
     margin: 0;
-    padding: 10px 0 10px 0;
+    padding: 5px 0 5px 0;
 
     background-color: white;
 }
 
 main ul:hover {
-    border: 1px solid rgb(78, 167, 230);
+    /*border: 1px solid rgb(78, 167, 230);*/
+    /*box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);*/
 }
 
 main ul li {

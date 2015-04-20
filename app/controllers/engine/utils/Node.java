@@ -1,8 +1,12 @@
 package controllers.engine.utils;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import play.libs.Json;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by pavelkuzmin on 08/06/14.
@@ -36,5 +40,20 @@ public class Node {
         }
 
         return nodes;
+    }
+
+    public static Map<String, Integer> getItemsMap(String items) {
+
+        Map<String, Integer> itemsMap = new TreeMap<>();
+
+        for (JsonNode item : Json.parse(items)) {
+
+            String name = item.get("name").asText();
+            int weight = item.get("weight").asInt();
+
+            itemsMap.put(name, weight);
+        }
+
+        return itemsMap;
     }
 }

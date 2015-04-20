@@ -100,7 +100,7 @@ public class Wiki {
             categories.add(category);
         }
 
-        token = new Token(word, redirect_name, String.valueOf(toJson(categories)), true);
+        token = new Token(word, redirect_name, categories, true);
         token.save();
 
         return token;

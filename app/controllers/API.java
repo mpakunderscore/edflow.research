@@ -26,6 +26,17 @@ public class API extends Controller {
         return ok(toJson(Watcher.getPage(url)));
     }
 
+    public static Result pageProcessed(String url) throws Exception {
+
+        List<Page> pagesList = Ebean.find(Page.class).findList();
+
+        Page page = Watcher.getPage(url);
+
+        Classifier.processPage(pagesList, page);
+
+        return ok(toJson(page));
+    }
+
     public static Result pages() throws Exception {
 
         Map<String, List> out = new HashMap<>();
