@@ -47,8 +47,4 @@ public class Category extends Model {
     public JsonNode getCategories() {
         return Json.parse(categories);
     }
-
-    public Map<String, Integer> getCategoriesMap() {
-        return Node.getItemsMap(categories);
-    }
 }

@@ -144,6 +144,9 @@ public class Engine {
 
             for (String tokenCategory : tokenCategories) {
 
+                int weight = token.getValue();
+//                int weight = 1;
+
                 Category category = Wiki.getCategory(token.getKey(), tokenCategory);
 //                List<String> categoryCategories = fromJson(category.getCategories(), ArrayList.class);
 
@@ -153,10 +156,10 @@ public class Engine {
                 if (categories.containsKey(tokenCategory)) {
 
                     int old = categories.get(tokenCategory);
-                    categories.put(tokenCategory, old + token.getValue());
+                    categories.put(tokenCategory, old + weight);
 
                 } else
-                    categories.put(tokenCategory, token.getValue());
+                    categories.put(tokenCategory, weight);
             }
         }
 

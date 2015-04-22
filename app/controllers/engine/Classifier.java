@@ -1,19 +1,15 @@
 package controllers.engine;
 
-import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Page;
 import play.Logger;
-import play.mvc.Result;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import static play.libs.Json.toJson;
 
 /**
  * Created by pavelkuzmin on 15/04/15.
@@ -28,8 +24,8 @@ public class Classifier {
 
         int pagesCount = pagesList.size();
 
-        Map<String, Integer> count = process(pagesList, true);
-        Map<String, Integer> mass = process(pagesList, false);
+        Map<String, Integer> count = processTokens(pagesList, true);
+        Map<String, Integer> mass = processTokens(pagesList, false);
 
         for (String token : mass.keySet()) {
 
@@ -49,13 +45,13 @@ public class Classifier {
         return sortedTokens;
     }
 
-    private static Map<String, Integer> process(List<Page> pagesList, boolean w) {
+    private static Map<String, Integer> processTokens(List<Page> pagesList, boolean w) {
 
         Map<String, Integer> tokens  = new HashMap<>();
 
         for (Page page : pagesList) {
 
-            for (Map.Entry<String, Integer> token : page.getTokensMap().entrySet()) {
+            for (Map.Entry<String, Integer> token : page.tokensMap().entrySet()) {
 
                 String name = token.getKey();
                 int weight = (w ? 1 : token.getValue());
@@ -71,6 +67,28 @@ public class Classifier {
         return tokens;
     }
 
+    private static Map<String, Integer> processCategories(List<Page> pagesList, boolean w) {
+
+        Map<String, Integer> categories  = new HashMap<>();
+
+        for (Page page : pagesList) {
+
+            for (Map.Entry<String, Integer> category : page.categoriesMap().entrySet()) {
+
+                String name = category.getKey();
+                int weight = (w ? 1 : category.getValue());
+
+                if (categories.containsKey(name))
+                    categories.put(name, categories.get(name) + weight);
+
+                else
+                    categories.put(name, weight);
+            }
+        }
+
+        return categories;
+    }
+
     public static Map<String, Integer> getCategories(List<Page> pagesList) {
 
         Map<String, Integer> categories  = new HashMap<>();
@@ -79,7 +97,7 @@ public class Classifier {
 
         for (Page page : pagesList) {
 
-            for (Map.Entry<String, Integer> category : page.getCategoriesMap().entrySet()) {
+            for (Map.Entry<String, Integer> category : page.categoriesMap().entrySet()) {
 
                 String name = category.getKey();
                 int weight = category.getValue();
@@ -140,6 +158,9 @@ public class Classifier {
     public static void processPage(List<Page> pagesList, Page target) {
 
         target.setTokens(getPageTokens(pagesList, target));
+
+        target.setCategories(Engine.getCategoriesMap(target.tokensMap()));
+
         target.setCategories(getPageCategories(pagesList, target));
     }
 
@@ -151,14 +172,14 @@ public class Classifier {
 
         int pagesCount = pagesList.size();
 
-        Map<String, Integer> count = process(pagesList, true);
+        Map<String, Integer> count = processTokens(pagesList, true);
 
-        for (Map.Entry<String, Integer> token : target.getTokensMap().entrySet()) {
+        for (Map.Entry<String, Integer> token : target.tokensMap().entrySet()) {
 
             String name = token.getKey();
             int weight = token.getValue();
 
-            int tCount = count.get(name);
+            int tCount = (count.containsKey(name) ? count.get(name) : 1);
 
             double idf = Math.log((double) pagesCount / (double) tCount);
 
@@ -175,6 +196,21 @@ public class Classifier {
         ValueComparator bvc =  new ValueComparator(categories);
         Map<String, Integer> sortedCategories  = new TreeMap<>(bvc);
 
+        int pagesCount = pagesList.size();
+
+        Map<String, Integer> count = processCategories(pagesList, true);
+
+        for (Map.Entry<String, Integer> category : target.categoriesMap().entrySet()) {
+
+            String name = category.getKey();
+            int weight = category.getValue();
+
+            int tCount = (count.containsKey(name) ? count.get(name) : 1);
+
+            double idf = Math.log((double) pagesCount / (double) tCount);
+
+            categories.put(name, (int) (weight * idf)); //TODO not weight, weight/tokensWeight
+        }
 
         sortedCategories.putAll(categories);
         return sortedCategories;

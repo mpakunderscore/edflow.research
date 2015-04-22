@@ -51,10 +51,6 @@ public class Token extends Model {
         return Json.parse(categories);
     }
 
-    public Map<String, Integer> getCategoriesMap() {
-        return Node.getItemsMap(categories);
-    }
-
     public String getRedirect() {
         return redirect;
     }

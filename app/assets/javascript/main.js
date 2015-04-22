@@ -104,7 +104,7 @@ function flow() {
 
 
 
-        var favIcon = "<a href=''>" +
+        var favIcon = "<a href='http://localhost:9000/api/page?url=" + pages_list[id]['url'] + "' target='_blank'>" +
             //<object data="http://stackoverflow.com/does-not-exist.png" type="image/png">
             "<img src=" + favIconUrl + "></a>";
 

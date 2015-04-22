@@ -71,7 +71,7 @@ public class Page extends Model {
         return Json.parse(tokens);
     }
 
-    public Map<String, Integer> getTokensMap() {
+    public Map<String, Integer> tokensMap() {
         return Node.getItemsMap(tokens);
     }
 
@@ -83,7 +83,7 @@ public class Page extends Model {
         return Json.parse(categories);
     }
 
-    public Map<String, Integer> getCategoriesMap() {
+    public Map<String, Integer> categoriesMap() {
         return Node.getItemsMap(categories);
     }
 
