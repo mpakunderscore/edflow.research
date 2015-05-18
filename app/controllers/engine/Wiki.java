@@ -3,6 +3,7 @@ package controllers.engine;
 import com.avaje.ebean.Ebean;
 import controllers.Watcher;
 import controllers.engine.utils.LangDetect;
+import controllers.engine.utils.Log;
 import models.Category;
 import models.Page;
 import models.Token;
@@ -63,7 +64,7 @@ public class Wiki {
 
             String lang = LangDetect.detect(word);
 
-            Logger.debug("[token new] " + word + " [" + lang + "]");
+            Log.out(Log.State.Tokens, "[new] " + word + " [" + lang + "]");
 
             String connectUrl = protocol + lang + tokenUrl
 
@@ -119,7 +120,7 @@ public class Wiki {
 
             String lang = LangDetect.detect(categoryName);
 
-            Logger.debug("[category new] " + categoryName + " [" + lang + "]");
+            Log.out(Log.State.Categories, "[new] " + categoryName + " [" + lang + "]");
 
             String connectUrl = protocol + lang + categoryUrl
 
@@ -131,7 +132,7 @@ public class Wiki {
 
         } catch (Exception exception) { //TODO
 
-            Logger.debug("[category null] " + categoryName + " [from token] " + tokenName);
+            Log.out(Log.State.Categories, "[null] " + categoryName + " [from token] " + tokenName);
 
             category = new Category(categoryName, String.valueOf(toJson(new ArrayList<>())));
             category.save();
@@ -152,7 +153,7 @@ public class Wiki {
         }
 
         if (subCategories.size() == 0)
-            Logger.debug("[category top] " + categoryName);
+            Log.out(Log.State.Categories, "[top] " + categoryName);
 
         category = new Category(categoryName, String.valueOf(toJson(subCategories)));
         category.save();

@@ -2,6 +2,7 @@ package controllers.engine.types;
 
 import controllers.Watcher;
 import controllers.engine.Engine;
+import controllers.engine.utils.Log;
 import controllers.engine.utils.Node;
 import models.Page;
 import org.jsoup.Connection;
@@ -21,7 +22,7 @@ public class WebPage extends Type {
 
     public static Page get(String url) {
 
-        Long time = System.currentTimeMillis();
+        final Long time = Log.getTime();
 
         String title;
         Document doc;
@@ -57,7 +58,7 @@ public class WebPage extends Type {
             wordsCount += value;
         }
 
-        Logger.debug("[time for url] " + (System.currentTimeMillis() - time) / 1000);
+        Log.time("[url] ", time);
         return new Page(url, title, tokens, categories);
     }
 }

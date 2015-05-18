@@ -1,15 +1,13 @@
 package controllers.engine;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import controllers.engine.utils.Log;
 import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Page;
 import play.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by pavelkuzmin on 15/04/15.
@@ -89,6 +87,28 @@ public class Classifier {
         return categories;
     }
 
+    public static List<Page> cloneList(List<Page> list) {
+        return new ArrayList<Page>(list);
+    }
+
+    public static Map<String, Integer> processCategories(List<Page> pagesList) {
+
+        List oldPagesList = cloneList(pagesList);
+
+        int i = 0;
+
+        for (Page page : pagesList) {
+
+            final Long time = Log.getTime();
+
+            processPage(oldPagesList, page);
+
+            Log.time("processPage(" + ++i + "/" + pagesList.size() + ")", time);
+        }
+
+        return getCategories(pagesList);
+    }
+
     public static Map<String, Integer> getCategories(List<Page> pagesList) {
 
         Map<String, Integer> categories  = new HashMap<>();
@@ -101,6 +121,7 @@ public class Classifier {
 
                 String name = category.getKey();
                 int weight = category.getValue();
+//                int weight = 1;
 
                 if (categories.containsKey(name))
                     categories.put(name, categories.get(name) + weight);
@@ -116,7 +137,7 @@ public class Classifier {
 
     private static void fillAsGraph(Map<String, Integer> categories, int i) {
 
-        Logger.debug("[fill graph] " + i + " [wave size] " + categories.size());
+        Log.out(Log.State.Research, "[fill graph] " + i + " [wave size] " + categories.size());
         i++;
 
         Map<String, Integer> subCategories = new HashMap<>();

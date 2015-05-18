@@ -27,7 +27,7 @@ public class FavIcon {
 
         String domainStringWithProtocol =  protocol + "://" + domainString; //TODO !!!
 
-        Logger.debug("[produce domain favicon] " + domainString);
+        Log.out(Log.State.Favicon, "[produce domain] " + domainString);
 
         String favIconFormat = null;
 
@@ -41,7 +41,7 @@ public class FavIcon {
 
             link = links.first().attr("href").split(Pattern.quote("?"))[0];
 
-            Logger.debug("[found favicon link] " + link);
+            Log.out(Log.State.Favicon, "[found link] " + link);
 
             if (link.startsWith("//"))
                 favIconFormat = check(protocol + ":" + link, domainString);
@@ -99,7 +99,7 @@ public class FavIcon {
 
     public static File copyFileFromWeb(String address, String filePath) throws MalformedURLException {
 
-        Logger.debug("[download favicon] " + address);
+        Log.out(Log.State.Favicon, "[download] " + address);
 
         byte[] buffer = new byte[1024];
         int bytesRead;

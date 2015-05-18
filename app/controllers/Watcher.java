@@ -3,6 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import controllers.engine.types.PDF;
 import controllers.engine.types.WebPage;
+import controllers.engine.utils.Log;
 import models.Page;
 import play.Logger;
 
@@ -17,7 +18,7 @@ public class Watcher {
 
     private static Page requestPage(String url) {
 
-        Logger.debug("[url request] " + url);
+        Log.out(Log.State.API, "[url request] " + url);
 
         if (url.endsWith(pdf))
             return PDF.get(url);

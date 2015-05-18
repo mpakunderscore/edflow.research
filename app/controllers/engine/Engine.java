@@ -1,6 +1,7 @@
 package controllers.engine;
 
 import com.avaje.ebean.Ebean;
+import controllers.engine.utils.Log;
 import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Token;
@@ -81,7 +82,7 @@ public class Engine {
 
             if (token.isMark()) {
 
-                Logger.debug("[token ok] " + word.getKey() + ": " + word.getValue() + " " + token.getCategories() + (token.getRedirect() == null ? "" : " " + token.getRedirect()));
+                Log.out(Log.State.Tokens, "[ok] " + word.getKey() + ": " + word.getValue() + " " + token.getCategories() + (token.getRedirect() == null ? "" : " " + token.getRedirect()));
 
                 if (token.getRedirect() != null) {
 
@@ -102,7 +103,7 @@ public class Engine {
                     tokens.put(word.getKey(), word.getValue());
 
             } else
-                Logger.debug("[token not mark] " + word.getKey() + ": " + word.getValue());
+                Log.out(Log.State.Tokens, "[not mark] " + word.getKey() + ": " + word.getValue());
         }
 
         if (bigrams)
@@ -151,7 +152,7 @@ public class Engine {
 //                List<String> categoryCategories = fromJson(category.getCategories(), ArrayList.class);
 
                 if (category != null)
-                    Logger.debug("[category ok] " + tokenCategory);
+                    Log.out(Log.State.Categories, "[ok] " + tokenCategory);
 
                 if (categories.containsKey(tokenCategory)) {
 
