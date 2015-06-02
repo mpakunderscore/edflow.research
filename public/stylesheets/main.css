@@ -33,7 +33,7 @@ header {
 header:hover {
     z-index: 1;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
-    background-color: rgba(160, 204, 230, 0.84);
+    background-color: rgba(160, 204, 230, 0.9);
     /*filter: blur(5px);*/
 }
 
@@ -155,7 +155,7 @@ main ul {
 
     width: 500px;
     margin: 0;
-    padding: 5px 0 5px 0;
+    padding: 10px 0 10px 0;
 
     background-color: white;
 }
@@ -196,9 +196,47 @@ aside {
     position: fixed;
     top: 70px;
 
-    width: 220px;
-    height: 300px;
-    /*background-color: chartreuse;*/
-    border: 1px solid lightgray;
-    left: 70%;
+    line-height: 16px;
+
+    width: 300px;
+    left: 25%;
+    margin-left: 500px;
+}
+
+aside section {
+    /*margin: 0;*/
+    padding: 20px;
+    background-color: rgba(160, 204, 230, 0.60);
+}
+aside section:hover {
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
+}
+
+aside menu {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(160, 204, 230, 0.30);
+}
+
+aside menu:hover {
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
+}
+
+aside menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0 10px 20px;
+}
+
+aside menu ul li {
+    padding: 10px 0 10px 0;
+}
+
+aside menu ul li a.selected {
+    color: red;
+}
+
+aside menu ul li a:hover {
+    text-decoration: none;
+    color: red;
 }

@@ -6,6 +6,7 @@ import controllers.engine.utils.ValueComparator;
 import models.Category;
 import models.Page;
 import play.Logger;
+import play.cache.Cache;
 
 import java.util.*;
 
@@ -87,13 +88,9 @@ public class Classifier {
         return categories;
     }
 
-    public static List<Page> cloneList(List<Page> list) {
-        return new ArrayList<Page>(list);
-    }
-
     public static Map<String, Integer> processCategories(List<Page> pagesList) {
 
-        List oldPagesList = cloneList(pagesList);
+        List oldPagesList = new ArrayList<>(pagesList);
 
         int i = 0;
 
@@ -115,6 +112,7 @@ public class Classifier {
         ValueComparator bvc =  new ValueComparator(categories);
         Map<String, Integer> sortedCategories  = new TreeMap<>(bvc);
 
+        //first
         for (Page page : pagesList) {
 
             for (Map.Entry<String, Integer> category : page.categoriesMap().entrySet()) {
@@ -130,6 +128,46 @@ public class Classifier {
                     categories.put(name, weight);
             }
         }
+
+        Map<String, Integer> subCategories = new HashMap<>();
+
+        //second
+        for (Map.Entry<String, Integer> category : categories.entrySet()) {
+
+            Category categoryObject = Wiki.getCategory(null, category.getKey());
+
+//            String name = category.getKey();
+            int weight = category.getValue();
+//                int weight = 1;
+
+            if (categoryObject == null)
+                continue;
+
+            JsonNode categorySubCategories = categoryObject.getCategories();
+
+            for (JsonNode subCategory : categorySubCategories) {
+
+                String name = subCategory.asText();
+
+                if (subCategories.containsKey(name))
+                    subCategories.put(name, subCategories.get(name) + weight);
+
+                else
+                    subCategories.put(name, weight);
+            }
+        }
+
+        for (String subCategoryName : subCategories.keySet()) {
+
+            int weight = subCategories.get(subCategoryName);
+
+            if (categories.containsKey(subCategoryName))
+                categories.put(subCategoryName, subCategories.get(subCategoryName) + weight);
+
+            else
+                categories.put(subCategoryName, weight);
+        }
+
 
         sortedCategories.putAll(categories);
         return sortedCategories;
@@ -178,11 +216,18 @@ public class Classifier {
 
     public static void processPage(List<Page> pagesList, Page target) {
 
+        Page saved = (Page) Cache.get(target.getUrl());
+
+        if (saved != null)
+            return;
+
         target.setTokens(getPageTokens(pagesList, target));
 
         target.setCategories(Engine.getCategoriesMap(target.tokensMap()));
 
         target.setCategories(getPageCategories(pagesList, target));
+
+        Cache.set(target.getUrl(), target);
     }
 
     private static Map<String, Integer> getPageTokens(List<Page> pagesList, Page target) {

@@ -54,7 +54,7 @@ public class API extends Controller {
 
         out.put("pages", pagesList);
 
-        Map<String, Integer> categories = Classifier.processCategories(pagesList);
+        Map<String, Integer> categories = Classifier.getCategories(pagesList);
 
         out.put("categories", Node.getNodeList(categories));
 
