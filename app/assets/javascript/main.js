@@ -136,8 +136,16 @@ function flow() {
 
         $("#categories").append(row);
 
-        if (id >= 13 - selected_categories.length) break;
+        if (id >= 13 - selected_categories.length)
+            break;
     }
+
+    var nav = "<li>" +
+              "<a href='javascript:void(0)' onclick='alert('+')' title=''>+</a>&emsp;" +
+              "<a href='javascript:void(0)' onclick='alert('-')' title=''>-</a>&emsp;" +
+              "<a href='javascript:void(0)' onclick='alert('?')' title=''>?</a></li>";
+    $("#categories").append(nav);
+
 
     flow_();
 

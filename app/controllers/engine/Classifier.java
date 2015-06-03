@@ -132,40 +132,44 @@ public class Classifier {
         Map<String, Integer> subCategories = new HashMap<>();
 
         //second
-        for (Map.Entry<String, Integer> category : categories.entrySet()) {
+        boolean second = false;
+        if (second) {
 
-            Category categoryObject = Wiki.getCategory(null, category.getKey());
+            for (Map.Entry<String, Integer> category : categories.entrySet()) {
+
+                Category categoryObject = Wiki.getCategory(null, category.getKey());
 
 //            String name = category.getKey();
-            int weight = category.getValue();
+                int weight = category.getValue();
 //                int weight = 1;
 
-            if (categoryObject == null)
-                continue;
+                if (categoryObject == null)
+                    continue;
 
-            JsonNode categorySubCategories = categoryObject.getCategories();
+                JsonNode categorySubCategories = categoryObject.getCategories();
 
-            for (JsonNode subCategory : categorySubCategories) {
+                for (JsonNode subCategory : categorySubCategories) {
 
-                String name = subCategory.asText();
+                    String name = subCategory.asText();
 
-                if (subCategories.containsKey(name))
-                    subCategories.put(name, subCategories.get(name) + weight);
+                    if (subCategories.containsKey(name))
+                        subCategories.put(name, subCategories.get(name) + weight);
+
+                    else
+                        subCategories.put(name, weight);
+                }
+            }
+
+            for (String subCategoryName : subCategories.keySet()) {
+
+                int weight = subCategories.get(subCategoryName);
+
+                if (categories.containsKey(subCategoryName))
+                    categories.put(subCategoryName, subCategories.get(subCategoryName) + weight);
 
                 else
-                    subCategories.put(name, weight);
+                    categories.put(subCategoryName, weight);
             }
-        }
-
-        for (String subCategoryName : subCategories.keySet()) {
-
-            int weight = subCategories.get(subCategoryName);
-
-            if (categories.containsKey(subCategoryName))
-                categories.put(subCategoryName, subCategories.get(subCategoryName) + weight);
-
-            else
-                categories.put(subCategoryName, weight);
         }
 
 
@@ -218,8 +222,8 @@ public class Classifier {
 
         Page saved = (Page) Cache.get(target.getUrl());
 
-        if (saved != null)
-            return;
+//        if (saved != null)
+//            return;
 
         target.setTokens(getPageTokens(pagesList, target));
 

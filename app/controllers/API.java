@@ -74,7 +74,7 @@ public class API extends Controller {
 
         List<Page> pagesList = Ebean.find(Page.class).findList();
 
-        Map<String, Integer> categories = Classifier.getCategories(pagesList);
+        Map<String, Integer> categories = Classifier.processCategories(pagesList);
 
 //        fillAsGraph(categories, 0);
 

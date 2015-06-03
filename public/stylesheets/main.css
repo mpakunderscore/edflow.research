@@ -9,8 +9,7 @@ html, body {
     font-size: 14px;
 
     /*background-color: rgb(232, 232, 232);*/
-    background-color: rgba(160, 204, 230, 0.40);
-
+    background-color: #d4eafa;
 }
 
 header {
@@ -28,13 +27,17 @@ header {
 
     line-height: 70px;
     font-size: 0;
+
+    /*background-color: rgba(160, 204, 230, 0.1);*/
+    /*background-color: rgba(160, 204, 230, 0.40);*/
 }
 
 header:hover {
-    z-index: 1;
+    z-index: 2;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
-    background-color: rgba(160, 204, 230, 0.9);
+    /*background-color: rgba(160, 204, 230, 0.9);*/
     /*filter: blur(5px);*/
+    background-color: #d4eafa;
 }
 
 header section.logo {
@@ -62,7 +65,6 @@ header section.main {
     /*background-color: white;*/
 
     /*vertical-align: middle;*/
-
 }
 
 header section.main input {
@@ -74,11 +76,14 @@ header section.main input {
     /*top: 0; left: 0; bottom: 0; right: 0;*/
     /*margin: auto;*/
 
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 
-    width: 462px;
+    -webkit-appearance: textfield;
+
+    width: 500px;
     /*height: 158px;*/
     padding: 10px;
+    margin: 0;
 
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
@@ -104,14 +109,21 @@ nav {
     position: fixed;
     width: 25%;
     top: 70px; /* without border */
+    margin-top: 3%;
+    /*bottom: 0;*/
 
     /*border: 1px solid white;*/
+}
+
+nav:hover {
+    /*z-index: 4;*/
+    /*box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);*/
 }
 
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 10px 20px 0 10px;
+    margin: 10px 20px 10px 10px;
 
     /*border: 1px solid white;*/
 }
@@ -141,11 +153,13 @@ nav ul li a:hover {
 
 main {
     position: absolute;
-    top: 70px;
+    /*top: 70px;*/
     left: 25%;
     overflow-x: hidden;
 
-    /*box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);*/
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+
+    z-index: 1;
 }
 
 main ul {
@@ -155,7 +169,7 @@ main ul {
 
     width: 500px;
     margin: 0;
-    padding: 10px 0 10px 0;
+    padding: 5px 0 5px 0;
 
     background-color: white;
 }
@@ -196,26 +210,35 @@ aside {
     position: fixed;
     top: 70px;
 
-    line-height: 16px;
+    line-height: 24px;
 
-    width: 300px;
+    /*width: 100%;*/
+    right: 0;
+    bottom: 0;
     left: 25%;
     margin-left: 500px;
+
+    /*vertical-align: middle;*/
+    margin-top: 10%;
 }
 
 aside section {
     /*margin: 0;*/
-    padding: 20px;
-    background-color: rgba(160, 204, 230, 0.60);
+    padding: 15px 20px 15px 20px;
+    /*background-color: rgba(160, 204, 230, 0.40);*/
+    /*box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);*/
+
+    /*max-width: 400px;*/
 }
 aside section:hover {
+    z-index: 3;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
 }
 
 aside menu {
     margin: 0;
     padding: 0;
-    background-color: rgba(160, 204, 230, 0.30);
+    /*background-color: rgba(160, 204, 230, 0.20);*/
 }
 
 aside menu:hover {
@@ -225,11 +248,12 @@ aside menu:hover {
 aside menu ul {
     list-style: none;
     margin: 0;
-    padding: 10px 0 10px 20px;
+    padding: 15px 0 10px 20px;
 }
 
 aside menu ul li {
-    padding: 10px 0 10px 0;
+    padding: 5px 0 10px 0;
+    line-height: 16px;
 }
 
 aside menu ul li a.selected {
